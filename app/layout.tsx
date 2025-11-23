@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import ScrollToTop from '@/components/ScrollToTop';
 import StickyContactButton from '@/components/StickyContactButton';
-import LeftSideButton from '@/components/LeftSideButton';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -49,7 +49,7 @@ export default function RootLayout({
         <Footer />
         <WhatsAppButton />
         <StickyContactButton />
-        <LeftSideButton />
+
         <ScrollToTop />
       </body>
     </html>
