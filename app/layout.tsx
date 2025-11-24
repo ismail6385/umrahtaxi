@@ -34,6 +34,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://taxiserviceksa.com',
   },
+  verification: {
+    google: 'Belm0suIdEZOrTDlLuFKDh04Zjd66lvr6K5LAkPcwIo',
+  },
 };
 
 export default function RootLayout({
