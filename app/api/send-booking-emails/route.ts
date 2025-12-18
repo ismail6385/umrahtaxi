@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 
 // Initialize Resend with API key check
 const resendApiKey = process.env.RESEND_API_KEY;
-const adminEmail = process.env.ADMIN_EMAIL;
+const adminEmail = process.env.ADMIN_EMAIL || 'taxiserviceksa9988@gmail.com';
 
 if (!resendApiKey) {
     console.error('RESEND_API_KEY is not set in environment variables');
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     try {
         // Validate request body
         const body = await request.json();
-        
+
         if (!body || !body.booking) {
             return NextResponse.json(
                 { error: 'Missing booking data in request body' },
@@ -79,12 +79,12 @@ export async function POST(request: NextRequest) {
         ];
 
         const missingFields = requiredFields.filter(field => !booking[field]);
-        
+
         if (missingFields.length > 0) {
             return NextResponse.json(
-                { 
+                {
                     error: 'Missing required booking fields',
-                    missingFields 
+                    missingFields
                 },
                 { status: 400 }
             );
@@ -122,10 +122,10 @@ export async function POST(request: NextRequest) {
         let customerEmail;
         try {
             customerEmail = await resend.emails.send({
-            from: 'Taxi Service KSA <noreply@taxiserviceksa.com>',
-            to: [booking.customer_email],
-            subject: 'Booking Confirmation - Taxi Service KSA',
-            html: `
+                from: 'Taxi Service KSA <noreply@taxiserviceksa.com>',
+                to: [booking.customer_email],
+                subject: 'Booking Confirmation - Taxi Service KSA',
+                html: `
                 <!DOCTYPE html>
                 <html>
                 <head>
@@ -219,13 +219,13 @@ export async function POST(request: NextRequest) {
                 name: customerEmailError.name,
                 response: customerEmailError.response || customerEmailError
             });
-            
+
             // Check if it's a domain verification error
             const errorMessage = customerEmailError.message || '';
             if (errorMessage.includes('domain') || errorMessage.includes('verify') || errorMessage.includes('not verified')) {
                 throw new Error(`Email domain not verified. Please verify 'taxiserviceksa.com' in Resend dashboard. Error: ${customerEmailError.message}`);
             }
-            
+
             throw new Error(`Customer email failed: ${customerEmailError.message}`);
         }
 
@@ -234,10 +234,10 @@ export async function POST(request: NextRequest) {
         try {
             console.log('Sending admin email to:', adminEmail);
             adminEmailResult = await resend.emails.send({
-            from: 'Taxi Service KSA <noreply@taxiserviceksa.com>',
-            to: [adminEmail],
-            subject: `🚗 New Booking - ${booking.customer_name}`,
-            html: `
+                from: 'Taxi Service KSA <noreply@taxiserviceksa.com>',
+                to: [adminEmail],
+                subject: `🚗 New Booking - ${booking.customer_name}`,
+                html: `
                 <!DOCTYPE html>
                 <html>
                 <head>
@@ -357,9 +357,9 @@ export async function POST(request: NextRequest) {
 
         console.log('Both emails sent successfully!');
 
-        return NextResponse.json({ 
-            success: true, 
-            customerEmail, 
+        return NextResponse.json({
+            success: true,
+            customerEmail,
             adminEmail: adminEmailResult || { error: 'Admin email failed but customer email sent' },
             bookingId: booking.id || 'pending'
         });
@@ -376,7 +376,7 @@ export async function POST(request: NextRequest) {
             console.error('Error Cause:', error.cause);
         }
         console.error('=====================================');
-        
+
         // Return detailed error to client
         return NextResponse.json({
             error: 'Failed to send emails',
