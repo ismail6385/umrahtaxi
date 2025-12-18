@@ -71,7 +71,7 @@ export default function ToyotaCoasterPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div className="relative h-96 lg:h-auto">
                             <Image
-                                src="/toyota-coaster.jpg"
+                                src="/toyota-coaster.webp"
                                 alt="Toyota Coaster"
                                 fill
                                 className="object-cover"

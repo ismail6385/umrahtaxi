@@ -24,42 +24,42 @@ export type BookingData = {
 export const vehicles = [
     {
         name: 'GMC Yukon',
-        image: '/gmc-yukon.jpg',
+        image: '/gmc-yukon.webp',
         passengers: 7,
         luggage: 5,
         priceRange: 'SAR 250 - 400'
     },
     {
         name: 'Toyota Camry',
-        image: '/toyota-camry.jpg',
+        image: '/toyota-camry.webp',
         passengers: 4,
         luggage: 3,
         priceRange: 'SAR 100 - 150'
     },
     {
         name: 'Hyundai Staria',
-        image: '/hyundai-staria.jpg',
+        image: '/hyundai-staria.webp',
         passengers: 7,
         luggage: 6,
         priceRange: 'SAR 180 - 250'
     },
     {
         name: 'Toyota Hiace',
-        image: '/toyota-hiace.jpg',
-        passengers: 12,
+        image: '/toyota-hiace.webp',
+        passengers: 11,
         luggage: 10,
         priceRange: 'SAR 300 - 450'
     },
     {
         name: 'Toyota Coaster',
-        image: '/toyota-coaster.jpg',
-        passengers: 23,
+        image: '/toyota-coaster.webp',
+        passengers: 17,
         luggage: 15,
         priceRange: 'SAR 400 - 600'
     },
     {
         name: 'Hyundai Starex',
-        image: '/hyundai-starex.jpg',
+        image: '/hyundai-starex.webp',
         passengers: 7,
         luggage: 5,
         priceRange: 'SAR 150 - 220'

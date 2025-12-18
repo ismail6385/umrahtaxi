@@ -36,9 +36,9 @@ export default function KhayberPage() {
     ];
 
     const khayberImages = [
-        '/hero-slide-2.jpg',
-        '/hero-slide-5.jpg',
-        '/hero-slide-1.jpg',
+        '/hero-slide-2.webp',
+        '/hero-slide-5.webp',
+        '/hero-slide-1.webp',
     ];
 
     const faqs = [

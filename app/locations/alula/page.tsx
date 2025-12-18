@@ -36,9 +36,9 @@ export default function AlUlaPage() {
     ];
 
     const alulaImages = [
-        '/alula_hegra_tombs_1765980544131.png',
-        '/hero-slide-5.jpg',
-        '/hero-slide-4.jpg',
+        '/alula-hegra-tombs.webp',
+        '/hero-slide-5.webp',
+        '/hero-slide-4.webp',
     ];
 
     const faqs = [

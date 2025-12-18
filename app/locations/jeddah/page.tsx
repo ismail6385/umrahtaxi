@@ -37,9 +37,9 @@ export default function JeddahPage() {
     ];
 
     const jeddahImages = [
-        '/jeddah_corniche_sunset_1765978916210.png',
-        '/jeddah_airport_terminal_1765979042538.png',
-        '/jeddah_city_night_1765979344807.png',
+        '/jeddah-corniche-sunset.webp',
+        '/jeddah-airport-terminal.webp',
+        '/jeddah-city-night.webp',
     ];
 
     const faqs = [

@@ -21,11 +21,11 @@ export default function Hero(props: HeroProps) {
 
     // Use custom images if provided, otherwise use default homepage slides
     const slides = images || [
-        '/hero-slide-1.jpg', // Kaaba Makkah
-        '/hero-slide-2.jpg', // Madinah Mosque
-        '/hero-slide-3.jpg', // Luxury Car
-        '/hero-slide-4.jpg', // Jeddah
-        '/hero-slide-5.jpg', // Riyadh
+        '/hero-slide-1.webp', // Kaaba Makkah
+        '/hero-slide-2.webp', // Madinah Mosque
+        '/hero-slide-3.webp', // Luxury Car
+        '/hero-slide-4.webp', // Jeddah
+        '/hero-slide-5.webp', // Riyadh
     ];
 
     // Alt text for each slide (SEO optimized with keywords)

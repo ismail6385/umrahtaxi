@@ -71,7 +71,7 @@ export default function HyundaiStariaPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div className="relative h-96 lg:h-auto">
                             <Image
-                                src="/hyundai-staria.jpg"
+                                src="/hyundai-staria.webp"
                                 alt="Hyundai Staria"
                                 fill
                                 className="object-cover"

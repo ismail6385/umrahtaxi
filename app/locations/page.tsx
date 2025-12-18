@@ -13,37 +13,37 @@ const locations = [
     {
         name: 'Jeddah',
         description: 'Airport transfers and city tours in the Bride of the Red Sea.',
-        image: '/jeddah_corniche_sunset_1765978916210.png',
+        image: '/jeddah-corniche-sunset.webp',
         href: '/locations/jeddah'
     },
     {
         name: 'Makkah',
         description: 'Reliable transport for Umrah pilgrims and Ziyarat.',
-        image: '/makkah_kaaba_night_1765976683486.png',
+        image: '/makkah-kaaba-night.webp',
         href: '/locations/makkah'
     },
     {
         name: 'Madinah',
         description: 'Comfortable journeys to the Prophet\'s City.',
-        image: '/madinah_prophets_mosque_1765977586459.png',
+        image: '/madinah-prophets-mosque.webp',
         href: '/locations/madinah'
     },
     {
         name: 'AlUla',
         description: 'Explore the ancient wonders of Hegra and Dadan.',
-        image: '/alula_hegra_tombs_1765980544131.png',
+        image: '/alula-hegra-tombs.webp',
         href: '/locations/alula'
     },
     {
         name: 'Taif',
         description: 'Scenic drives to the City of Roses.',
-        image: '/taif_mountains_view_1765979609175.png',
+        image: '/taif-mountains-view.webp',
         href: '/locations/taif'
     },
     {
         name: 'Khayber Fort',
         description: 'Historical tours to the ancient oases of Khaybar.',
-        image: '/alula_hegra_tombs_1765980544131.png', // Using AlUla image as fallback/relevant
+        image: '/alula-hegra-tombs.webp', // Using AlUla image as fallback/relevant
         href: '/locations/khayber-fort'
     }
 ];

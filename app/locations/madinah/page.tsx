@@ -36,9 +36,9 @@ export default function MadinahPage() {
     ];
 
     const madinahImages = [
-        '/madinah_prophets_mosque_1765977586459.png',
-        '/madinah_night_view_1765977897424.png',
-        '/hero-slide-2.jpg',
+        '/madinah-prophets-mosque.webp',
+        '/madinah-night-view.webp',
+        '/hero-slide-2.webp',
     ];
 
     const faqs = [

@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const { booking } = body;
+        const { booking, price } = body;
 
         // Validate required fields
         const requiredFields = [
@@ -142,6 +142,7 @@ export async function POST(request: NextRequest) {
                         .value { color: #000; font-weight: bold; }
                         .footer { background: #f5f5f5; padding: 20px; text-center; border-radius: 0 0 10px 10px; font-size: 14px; color: #666; }
                         .button { display: inline-block; background: #C6FF00; color: #000; padding: 12px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 20px 0; }
+                        .price-row { background-color: #f0f0f0; margin: 10px -20px; padding: 10px 20px; border-left: 4px solid #C6FF00; }
                     </style>
                 </head>
                 <body>
@@ -186,16 +187,23 @@ export async function POST(request: NextRequest) {
                                     <span class="value">${booking.passengers || 1} passengers</span>
                                 </div>
                                 
+                                ${price ? `
+                                <div class="detail-row price-row">
+                                    <span class="label">Total Price:</span>
+                                    <span class="value" style="font-size: 1.2em; color: #000;">SAR ${price}</span>
+                                </div>
+                                ` : ''}
+
                                 <div class="detail-row">
                                     <span class="label">Status:</span>
                                     <span class="value" style="color: #C6FF00;">Pending Confirmation</span>
                                 </div>
                             </div>
                             
-                            <p>Our team will contact you shortly on <strong>${booking.customer_phone}</strong> to confirm the final details.</p>
+                            <p>Our team will contact you shortly on <strong>+${formatPhoneForWhatsApp(booking.customer_phone)}</strong> to confirm the final details.</p>
                             
                             <center>
-                                <a href="https://wa.me/03176243861" class="button">Contact Us on WhatsApp</a>
+                                ${booking.customer_phone ? `<a href="https://wa.me/${formatPhoneForWhatsApp(booking.customer_phone)}" class="button">Contact Us on WhatsApp</a>` : ''}
                             </center>
                             
                             <p style="margin-top: 30px; font-size: 14px; color: #666;">
@@ -236,7 +244,7 @@ export async function POST(request: NextRequest) {
             adminEmailResult = await resend.emails.send({
                 from: 'Taxi Service KSA <noreply@taxiserviceksa.com>',
                 to: [adminEmail],
-                subject: `🚗 New Booking - ${booking.customer_name}`,
+                subject: `🚗 New Booking - ${booking.customer_name} ${price ? `(SAR ${price})` : ''}`,
                 html: `
                 <!DOCTYPE html>
                 <html>
@@ -254,6 +262,7 @@ export async function POST(request: NextRequest) {
                         .value { color: #000; font-weight: bold; }
                         .alert { background: #C6FF00; color: #000; padding: 15px; border-radius: 8px; margin: 20px 0; font-weight: bold; text-align: center; }
                         .button { display: inline-block; background: #C6FF00; color: #000; padding: 12px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 10px 5px; }
+                        .price-alert { background: #f0f0f0; color: #000; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 15px; font-size: 1.2em; font-weight: bold; }
                     </style>
                 </head>
                 <body>
@@ -266,6 +275,12 @@ export async function POST(request: NextRequest) {
                                 ⚡ Action Required: Contact customer immediately!
                             </div>
                             
+                            ${price ? `
+                            <div class="price-alert">
+                                💰 Quoted Price: SAR ${price}
+                            </div>
+                            ` : ''}
+
                             <div class="booking-details">
                                 <h3 style="margin-top: 0; color: #000;">Customer Information</h3>
                                 

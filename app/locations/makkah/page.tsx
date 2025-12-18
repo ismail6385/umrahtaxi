@@ -37,9 +37,9 @@ export default function MakkahPage() {
 
     // Makkah-specific hero images
     const makkahImages = [
-        '/makkah_kaaba_night_1765976683486.png',
-        '/makkah_grand_mosque_1765976862891.png',
-        '/makkah_clock_tower_1765977083362.png',
+        '/makkah-kaaba-night.webp',
+        '/makkah-grand-mosque.webp',
+        '/makkah-clock-tower.webp',
     ];
 
     const faqs = [

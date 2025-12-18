@@ -49,11 +49,11 @@ export default function Home() {
 
   // High-Quality Images for Hero Slider
   const heroImages = [
-    '/makkah_kaaba_night_1765976683486.png', // Makkah
-    '/madinah_prophets_mosque_1765977586459.png', // Madinah
-    '/jeddah_corniche_sunset_1765978916210.png', // Jeddah
-    '/taif_mountains_view_1765979609175.png', // Taif
-    '/alula_hegra_tombs_1765980544131.png', // AlUla
+    '/makkah-kaaba-night.webp', // Makkah
+    '/madinah-prophets-mosque.webp', // Madinah
+    '/jeddah-corniche-sunset.webp', // Jeddah
+    '/taif-mountains-view.webp', // Taif
+    '/alula-hegra-tombs.webp', // AlUla
   ];
 
   // Services data with RDF Triple structure and Correct Links
@@ -88,7 +88,7 @@ export default function Home() {
   const fleet = [
     {
       name: "GMC Yukon",
-      image: "/gmc-yukon.jpg",
+      image: "/gmc-yukon.webp",
       passengers: 7,
       luggage: 5,
       features: ["Luxury Interior", "Extra Legroom", "VIP Experience"],
@@ -96,7 +96,7 @@ export default function Home() {
     },
     {
       name: "Toyota Camry",
-      image: "/toyota-camry.jpg",
+      image: "/toyota-camry.webp",
       passengers: 4,
       luggage: 2,
       features: ["Comfortable Seating", "AC", "Economic Choice"],
@@ -104,7 +104,7 @@ export default function Home() {
     },
     {
       name: "Hyundai Staria",
-      image: "/hyundai-staria.jpg",
+      image: "/hyundai-staria.webp",
       passengers: 7,
       luggage: 4,
       features: ["Modern Design", "Spacious", "Family Travel"],
@@ -112,7 +112,7 @@ export default function Home() {
     },
     {
       name: "Toyota Hiace",
-      image: "/toyota-hiace.jpg",
+      image: "/toyota-hiace.webp",
       passengers: 11,
       luggage: 16,
       features: ["Group Travel", "Spacious Interior", "Umrah Groups"],
@@ -120,7 +120,7 @@ export default function Home() {
     },
     {
       name: "Toyota Coaster",
-      image: "/toyota-coaster.jpg",
+      image: "/toyota-coaster.webp",
       passengers: 17,
       luggage: 20,
       features: ["Large Groups", "Tour Bus", "Corporate Events"],
@@ -128,7 +128,7 @@ export default function Home() {
     },
     {
       name: "Hyundai Starex",
-      image: "/hyundai-starex.jpg",
+      image: "/hyundai-starex.webp",
       passengers: 7,
       luggage: 10,
       features: ["Family Friendly", "Comfortable", "Reliable"],
@@ -375,7 +375,7 @@ export default function Home() {
               <div className="absolute -bottom-6 -right-6 sm:-bottom-10 sm:-right-10 w-32 h-32 sm:w-40 sm:h-40 bg-blue-500/20 rounded-full blur-3xl"></div>
               <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-4 sm:border-8 border-white">
                 <Image
-                  src="/gmc-yukon.jpg"
+                  src="/gmc-yukon.webp"
                   alt="Luxury GMC Yukon interior - Premium chauffeur service vehicle in Saudi Arabia"
                   width={800}
                   height={600}
@@ -550,18 +550,18 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
                 <div className="space-y-2 sm:space-y-3 md:space-y-4">
                   <div className="relative h-40 sm:h-48 md:h-56 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg">
-                    <Image src="/makkah_kaaba_night_1765976683486.png" alt="Makkah Kaaba at night - Umrah taxi service destination" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
+                    <Image src="/makkah-kaaba-night.webp" alt="Makkah Kaaba at night - Umrah taxi service destination" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
                   </div>
                   <div className="relative h-52 sm:h-60 md:h-64 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg">
-                    <Image src="/gmc-yukon.jpg" alt="Luxury GMC Yukon interior - Premium chauffeur vehicle" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
+                    <Image src="/gmc-yukon.webp" alt="Luxury GMC Yukon interior - Premium chauffeur vehicle" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
                   </div>
                 </div>
                 <div className="space-y-2 sm:space-y-3 md:space-y-4 pt-4 sm:pt-6 md:pt-8">
                   <div className="relative h-52 sm:h-60 md:h-64 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg">
-                    <Image src="/madinah_prophets_mosque_1765977586459.png" alt="Prophet's Mosque in Madinah - Ziyarat tour destination" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
+                    <Image src="/madinah-prophets-mosque.webp" alt="Prophet's Mosque in Madinah - Ziyarat tour destination" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
                   </div>
                   <div className="relative h-40 sm:h-48 md:h-56 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg">
-                    <Image src="/hyundai-staria.jpg" alt="Hyundai Staria luxury vehicle - Family travel option" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
+                    <Image src="/hyundai-staria.webp" alt="Hyundai Staria luxury vehicle - Family travel option" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
                   </div>
                 </div>
               </div>

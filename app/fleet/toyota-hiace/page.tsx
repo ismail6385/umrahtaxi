@@ -73,7 +73,7 @@ export default function ToyotaHiacePage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div className="relative h-96 lg:h-auto">
                             <Image
-                                src="/toyota-hiace.jpg"
+                                src="/toyota-hiace.webp"
                                 alt="Toyota Hiace"
                                 fill
                                 className="object-cover"

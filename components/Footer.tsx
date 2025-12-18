@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Facebook, Instagram, Twitter, Linkedin, Car, Youtube } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Linkedin, Car, Youtube, Share2 } from 'lucide-react';
 
 export default function Footer() {
     return (
@@ -21,20 +21,41 @@ export default function Footer() {
                             Premium chauffeur services in Saudi Arabia. Experience luxury, comfort, and reliability for all your travel needs.
                         </p>
                         <div className="flex flex-wrap gap-3">
-                            <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary text-gray-400 hover:text-neutral-900 transition-all duration-300 hover:scale-110 border border-white/5 hover:border-primary">
+                            <a 
+                                href="https://www.facebook.com/people/Taxi-Service-KSA/61573850597962/" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary text-gray-400 hover:text-neutral-900 transition-all duration-300 hover:scale-110 border border-white/5 hover:border-primary"
+                                aria-label="Facebook"
+                            >
                                 <Facebook className="w-5 h-5" />
                             </a>
-                            <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary text-gray-400 hover:text-neutral-900 transition-all duration-300 hover:scale-110 border border-white/5 hover:border-primary">
-                                <Instagram className="w-5 h-5" />
-                            </a>
-                            <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary text-gray-400 hover:text-neutral-900 transition-all duration-300 hover:scale-110 border border-white/5 hover:border-primary">
-                                <Twitter className="w-5 h-5" />
-                            </a>
-                            <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary text-gray-400 hover:text-neutral-900 transition-all duration-300 hover:scale-110 border border-white/5 hover:border-primary">
+                            <a 
+                                href="https://www.linkedin.com/company/taxi-service-ksa/" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary text-gray-400 hover:text-neutral-900 transition-all duration-300 hover:scale-110 border border-white/5 hover:border-primary"
+                                aria-label="LinkedIn"
+                            >
                                 <Linkedin className="w-5 h-5" />
                             </a>
-                            <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary text-gray-400 hover:text-neutral-900 transition-all duration-300 hover:scale-110 border border-white/5 hover:border-primary">
+                            <a 
+                                href="https://www.youtube.com/channel/UCeP44oxBUKUG5X-UhYmPMNw" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary text-gray-400 hover:text-neutral-900 transition-all duration-300 hover:scale-110 border border-white/5 hover:border-primary"
+                                aria-label="YouTube"
+                            >
                                 <Youtube className="w-5 h-5" />
+                            </a>
+                            <a 
+                                href="https://www.pinterest.com/taxiserviceksa/" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary text-gray-400 hover:text-neutral-900 transition-all duration-300 hover:scale-110 border border-white/5 hover:border-primary"
+                                aria-label="Pinterest"
+                            >
+                                <Share2 className="w-5 h-5" />
                             </a>
                         </div>
                     </div>

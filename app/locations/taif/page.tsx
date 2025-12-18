@@ -36,9 +36,9 @@ export default function TaifPage() {
     ];
 
     const taifImages = [
-        '/taif_mountains_view_1765979609175.png',
-        '/taif_rose_gardens_1765980023122.png',
-        '/hero-slide-5.jpg',
+        '/taif-mountains-view.webp',
+        '/taif-rose-gardens.webp',
+        '/hero-slide-5.webp',
     ];
 
     const faqs = [

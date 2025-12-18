@@ -11,7 +11,7 @@ export default function FleetPage() {
     const fleet = [
         {
             name: "GMC Yukon",
-            image: "/gmc-yukon.jpg",
+            image: "/gmc-yukon.webp",
             passengers: 7,
             luggage: 5,
             features: ["Luxury Interior", "Extra Legroom", "VIP Experience", "Premium Sound System"],
@@ -19,7 +19,7 @@ export default function FleetPage() {
         },
         {
             name: "Toyota Camry",
-            image: "/toyota-camry.jpg",
+            image: "/toyota-camry.webp",
             passengers: 4,
             luggage: 2,
             features: ["Comfortable Seating", "AC", "Economic Choice", "City Travel"],
@@ -27,7 +27,7 @@ export default function FleetPage() {
         },
         {
             name: "Hyundai Staria",
-            image: "/hyundai-staria.jpg",
+            image: "/hyundai-staria.webp",
             passengers: 7,
             luggage: 4,
             features: ["Modern Design", "Spacious", "Family Travel", "USB Charging"],
@@ -35,7 +35,7 @@ export default function FleetPage() {
         },
         {
             name: "Toyota Hiace",
-            image: "/toyota-hiace.jpg",
+            image: "/toyota-hiace.webp",
             passengers: 11,
             luggage: 16,
             features: ["Group Travel", "Spacious Interior", "Umrah Groups", "Reliable"],
@@ -43,7 +43,7 @@ export default function FleetPage() {
         },
         {
             name: "Toyota Coaster",
-            image: "/toyota-coaster.jpg",
+            image: "/toyota-coaster.webp",
             passengers: 17,
             luggage: 20,
             features: ["Large Groups", "Tour Bus", "Corporate Events", "Long Distance"],
@@ -51,7 +51,7 @@ export default function FleetPage() {
         },
         {
             name: "Hyundai Starex",
-            image: "/hyundai-starex.jpg",
+            image: "/hyundai-starex.webp",
             passengers: 7,
             luggage: 10,
             features: ["Family Friendly", "Comfortable", "Reliable", "Airport Transfer"],

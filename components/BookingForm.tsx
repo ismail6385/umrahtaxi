@@ -4,14 +4,37 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Calendar, MapPin, Phone, User, Clock, Car, Mail, ArrowRight, ArrowLeft, Check, Users, Briefcase } from 'lucide-react';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { Calendar, MapPin, Phone, User, Clock, Car, Mail, ArrowRight, ArrowLeft, Check, Users, Briefcase, Wallet } from 'lucide-react';
 import { supabase, vehicles, type BookingData } from '@/lib/supabase';
-import Image from 'next/image';
+import { getPrice } from '@/lib/pricing';
+
+const POPULAR_ROUTES = [
+    { id: 'custom', label: 'Custom Location (Enter below)' },
+    // Core intercity routes
+    { id: 'jeddah-makkah', from: 'Jeddah Airport', to: 'Makkah Hotel', label: 'Jeddah Airport → Makkah' },
+    { id: 'makkah-madinah-hotel', from: 'Makkah Hotel', to: 'Madinah Hotel', label: 'Makkah → Madinah Hotel' },
+    { id: 'makkah-madinah-badr-ziyarat', from: 'Makkah', to: 'Madinah (via Badr Ziyarat)', label: 'Makkah → Madinah (via Baddar Ziyarat)' },
+    { id: 'makkah-ziyarat-tour', from: 'Makkah Hotel', to: 'Makkah Ziyarat Tour', label: 'Makkah Ziyarat Tour' },
+    { id: 'madinah-hotel-airport', from: 'Madinah Hotel', to: 'Madinah Airport', label: 'Madinah Hotel → Madinah Airport' },
+    { id: 'madinah-ziyarat-tour', from: 'Madinah Hotel', to: 'Madinah Ziyarat Tour', label: 'Madinah Ziyarat Tour' },
+    { id: 'madinah-hotel-train', from: 'Madinah Hotel', to: 'Madinah Train Station', label: 'Madinah Hotel → Train Station' },
+    { id: 'madinah-hotel-jeddah-airport', from: 'Madinah Hotel', to: 'Jeddah Airport', label: 'Madinah Hotel → Jeddah Airport' },
+    { id: 'makkah-hotel-train', from: 'Makkah Hotel', to: 'Makkah Train Station', label: 'Makkah Hotel → Train Station' },
+    { id: 'makkah-hotel-jeddah-airport', from: 'Makkah Hotel', to: 'Jeddah Airport', label: 'Makkah Hotel → Jeddah Airport' },
+];
 
 export default function BookingForm() {
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [calculatedPrice, setCalculatedPrice] = useState<number | null>(null);
 
     const [formData, setFormData] = useState<BookingData>({
         customer_name: '',
@@ -57,11 +80,25 @@ export default function BookingForm() {
         }
     }, [searchParams]);
 
+    // Calculate price whenever relevant fields change
+    useEffect(() => {
+        if (formData.pickup_location && formData.destination && formData.vehicle_type) {
+            const price = getPrice(formData.pickup_location, formData.destination, formData.vehicle_type);
+            setCalculatedPrice(price);
+        } else {
+            setCalculatedPrice(null);
+        }
+    }, [formData.pickup_location, formData.destination, formData.vehicle_type]);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        const { name, value } = e.target;
+
+        // Convert numeric fields to numbers
+        const numericFields = ['passengers', 'luggage'];
+        setFormData(prev => ({
+            ...prev,
+            [name]: numericFields.includes(name) ? Number(value) || 0 : value
+        }));
     };
 
     const selectVehicle = (vehicle: typeof vehicles[0]) => {
@@ -79,10 +116,18 @@ export default function BookingForm() {
         setLoading(true);
 
         try {
+            // Include price in special requests if calculated, so it's saved in DB
+            const finalFormData = {
+                ...formData,
+                special_requests: calculatedPrice
+                    ? `${formData.special_requests ? formData.special_requests + '. ' : ''}Quoted Price: SAR ${calculatedPrice}`
+                    : formData.special_requests
+            };
+
             // Save to Supabase
             const { data, error } = await supabase
                 .from('bookings')
-                .insert([formData])
+                .insert([finalFormData])
                 .select();
 
             if (error) throw error;
@@ -94,7 +139,10 @@ export default function BookingForm() {
                 const emailResponse = await fetch('/api/send-booking-emails', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ booking: data[0] })
+                    body: JSON.stringify({
+                        booking: data[0],
+                        price: calculatedPrice // Pass explicitly to API
+                    })
                 });
 
                 if (!emailResponse.ok) {
@@ -227,7 +275,43 @@ export default function BookingForm() {
                 {/* Step 2: Trip Details & Vehicle Selection */}
                 {step === 2 && (
                     <div className="space-y-5 animate-fade-in-up">
-                        <div className="grid grid-cols-2 gap-4">
+
+                        {/* Quick Route Selection */}
+                        <div className="bg-gray-50/50 p-2 rounded-xl border border-dashed border-gray-200">
+                            <label className="text-xs font-semibold text-gray-500 ml-2 mb-1 block">Quick Select Route (Optional)</label>
+                            <Select onValueChange={(value) => {
+                                if (value === 'custom') {
+                                    setFormData(prev => ({ ...prev, pickup_location: '', destination: '' }));
+                                } else {
+                                    const route = POPULAR_ROUTES.find(r => r.id === value);
+                                    if (route) {
+                                        setFormData(prev => ({
+                                            ...prev,
+                                            pickup_location: route.from || '',
+                                            destination: route.to || ''
+                                        }));
+                                    }
+                                }
+                            }}>
+                                <SelectTrigger className="w-full bg-white border-gray-200">
+                                    <SelectValue placeholder="Select a popular route..." />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {POPULAR_ROUTES.map((route) => (
+                                        <SelectItem key={route.id} value={route.id}>
+                                            {route.label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div className="space-y-1">
+                            <p className="text-xs text-center text-gray-400">- OR Enter Custom Locations -</p>
+                        </div>
+
+                        {/* Route fields */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="relative group/input">
                                 <MapPin className="absolute left-3 top-3.5 w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
                                 <Input
@@ -252,7 +336,56 @@ export default function BookingForm() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        {/* Vehicle Selection - under route */}
+                        <div className="space-y-3">
+                            <h4 className="text-lg font-bold text-gray-900">Choose Your Vehicle *</h4>
+                            <Select
+                                value={formData.vehicle_type || undefined}
+                                onValueChange={(value) => {
+                                    const vehicle = vehicles.find(v => v.name === value);
+                                    if (vehicle) {
+                                        selectVehicle(vehicle);
+                                    }
+                                }}
+                            >
+                                <SelectTrigger className="w-full bg-white border-gray-200">
+                                    <SelectValue placeholder="Select vehicle type..." />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {vehicles.map((vehicle) => (
+                                        <SelectItem key={vehicle.name} value={vehicle.name}>
+                                            {vehicle.name} — {vehicle.passengers} pax, {vehicle.luggage} luggage
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            {formData.vehicle_type && (
+                                <p className="text-xs text-gray-600">
+                                    Selected: <span className="font-semibold text-gray-900">{formData.vehicle_type}</span>
+                                </p>
+                            )}
+                        </div>
+
+                        {/* Passenger count */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="relative group/input">
+                                <Users className="absolute left-3 top-3.5 w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
+                                <Input
+                                    name="passengers"
+                                    type="number"
+                                    min={1}
+                                    max={50}
+                                    placeholder="Number of Passengers *"
+                                    required
+                                    value={formData.passengers}
+                                    className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-xl"
+                                    onChange={handleChange}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Date & time */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="relative group/input">
                                 <Calendar className="absolute left-3 top-3.5 w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
                                 <Input
@@ -274,38 +407,6 @@ export default function BookingForm() {
                                     className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-xl"
                                     onChange={handleChange}
                                 />
-                            </div>
-                        </div>
-
-                        {/* Vehicle Selection */}
-                        <div>
-                            <h4 className="text-lg font-bold text-gray-900 mb-4">Choose Your Vehicle *</h4>
-                            <div className="grid grid-cols-2 gap-3 max-h-96 overflow-y-auto">
-                                {vehicles.map((vehicle) => (
-                                    <div
-                                        key={vehicle.name}
-                                        onClick={() => selectVehicle(vehicle)}
-                                        className={`cursor-pointer border-2 rounded-xl p-3 transition-all hover:shadow-lg ${formData.vehicle_type === vehicle.name
-                                            ? 'border-primary bg-primary/5'
-                                            : 'border-gray-200 hover:border-primary/50'
-                                            }`}
-                                    >
-                                        <div className="relative h-24 mb-2 rounded-lg overflow-hidden">
-                                            <Image
-                                                src={vehicle.image}
-                                                alt={vehicle.name}
-                                                fill
-                                                className="object-cover"
-                                            />
-                                        </div>
-                                        <h5 className="font-bold text-sm text-gray-900">{vehicle.name}</h5>
-                                        <div className="flex items-center gap-2 text-xs text-gray-600 mt-1">
-                                            <Users className="w-3 h-3" /> {vehicle.passengers}
-                                            <Briefcase className="w-3 h-3 ml-2" /> {vehicle.luggage}
-                                        </div>
-                                        <p className="text-xs text-primary font-semibold mt-1">{vehicle.priceRange}</p>
-                                    </div>
-                                ))}
                             </div>
                         </div>
 
@@ -370,6 +471,16 @@ export default function BookingForm() {
                                     <span className="text-gray-600">Capacity:</span>
                                     <span className="font-semibold text-gray-900">{formData.passengers} passengers, {formData.luggage} luggage</span>
                                 </div>
+
+                                <div className="border-t border-gray-200 my-3"></div>
+                                <div className="flex justify-between items-center bg-primary/10 p-3 rounded-lg border border-primary/20">
+                                    <span className="text-gray-800 font-bold flex items-center">
+                                        <Wallet className="w-4 h-4 mr-2" /> Total Price:
+                                    </span>
+                                    <span className="font-bold text-lg text-black">
+                                        {calculatedPrice ? `SAR ${calculatedPrice}` : 'Calculated upon confirmation'}
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
@@ -410,6 +521,7 @@ export default function BookingForm() {
                             onClick={() => {
                                 setStep(1);
                                 setSuccess(false);
+                                setCalculatedPrice(null);
                                 setFormData({
                                     customer_name: '',
                                     customer_email: '',

@@ -78,7 +78,7 @@ export default function GMCYukonPage() {
                         {/* Image */}
                         <div className="relative h-96 lg:h-auto">
                             <Image
-                                src="/gmc-yukon.jpg"
+                                src="/gmc-yukon.webp"
                                 alt="GMC Yukon"
                                 fill
                                 className="object-cover"

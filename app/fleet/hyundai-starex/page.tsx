@@ -71,7 +71,7 @@ export default function HyundaiStarexPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div className="relative h-96 lg:h-auto">
                             <Image
-                                src="/hyundai-starex.jpg"
+                                src="/hyundai-starex.webp"
                                 alt="Hyundai Starex"
                                 fill
                                 className="object-cover"

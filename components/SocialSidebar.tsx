@@ -4,7 +4,9 @@ export default function SocialSidebar() {
     return (
         <div className="fixed left-0 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col bg-white shadow-lg rounded-r-lg overflow-hidden border border-l-0 border-gray-200">
             <a
-                href="#"
+                href="https://www.facebook.com/people/Taxi-Service-KSA/61573850597962/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-3 hover:bg-blue-600 hover:text-white text-blue-600 transition-colors duration-300 flex items-center justify-center group relative"
                 title="Facebook"
             >
@@ -34,7 +36,9 @@ export default function SocialSidebar() {
                 </span>
             </a>
             <a
-                href="#"
+                href="https://www.linkedin.com/company/taxi-service-ksa/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-3 hover:bg-blue-700 hover:text-white text-blue-700 transition-colors duration-300 flex items-center justify-center group relative"
                 title="LinkedIn"
             >
@@ -44,7 +48,9 @@ export default function SocialSidebar() {
                 </span>
             </a>
             <a
-                href="#"
+                href="https://www.youtube.com/channel/UCeP44oxBUKUG5X-UhYmPMNw"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-3 hover:bg-red-600 hover:text-white text-red-600 transition-colors duration-300 flex items-center justify-center group relative"
                 title="YouTube"
             >
@@ -66,7 +72,9 @@ export default function SocialSidebar() {
                 </span>
             </a>
             <a
-                href="#"
+                href="https://www.pinterest.com/taxiserviceksa/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-3 hover:bg-red-700 hover:text-white text-red-700 transition-colors duration-300 flex items-center justify-center group relative"
                 title="Pinterest"
             >

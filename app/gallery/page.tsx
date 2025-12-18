@@ -15,53 +15,53 @@ export default function GalleryPage() {
             title: 'Our Premium Fleet',
             description: 'Luxury vehicles for every occasion',
             images: [
-                { src: '/gmc-yukon.jpg', alt: 'GMC Yukon - Luxury SUV', category: 'Luxury' },
-                { src: '/toyota-camry.jpg', alt: 'Toyota Camry - Comfortable Sedan', category: 'Sedan' },
-                { src: '/hyundai-staria.jpg', alt: 'Hyundai Staria - Modern Family Van', category: 'Van' },
-                { src: '/toyota-hiace.jpg', alt: 'Toyota Hiace - Group Transport', category: 'Van' },
-                { src: '/toyota-coaster.jpg', alt: 'Toyota Coaster - Tour Bus', category: 'Bus' },
-                { src: '/hyundai-starex.jpg', alt: 'Hyundai Starex - Family Van', category: 'Van' },
+                { src: '/gmc-yukon.webp', alt: 'GMC Yukon - Luxury SUV', category: 'Luxury' },
+                { src: '/toyota-camry.webp', alt: 'Toyota Camry - Comfortable Sedan', category: 'Sedan' },
+                { src: '/hyundai-staria.webp', alt: 'Hyundai Staria - Modern Family Van', category: 'Van' },
+                { src: '/toyota-hiace.webp', alt: 'Toyota Hiace - Group Transport', category: 'Van' },
+                { src: '/toyota-coaster.webp', alt: 'Toyota Coaster - Tour Bus', category: 'Bus' },
+                { src: '/hyundai-starex.webp', alt: 'Hyundai Starex - Family Van', category: 'Van' },
             ]
         },
         {
             title: 'Makkah Services',
             description: 'Professional transport in the Holy City',
             images: [
-                { src: '/makkah_kaaba_night_1765976683486.png', alt: 'Kaaba at Night', category: 'Makkah' },
-                { src: '/makkah_grand_mosque_1765976862891.png', alt: 'Grand Mosque Aerial View', category: 'Makkah' },
-                { src: '/makkah_clock_tower_1765977083362.png', alt: 'Clock Tower at Dusk', category: 'Makkah' },
+                { src: '/makkah-kaaba-night.webp', alt: 'Kaaba at Night', category: 'Makkah' },
+                { src: '/makkah-grand-mosque.webp', alt: 'Grand Mosque Aerial View', category: 'Makkah' },
+                { src: '/makkah-clock-tower.webp', alt: 'Clock Tower at Dusk', category: 'Makkah' },
             ]
         },
         {
             title: 'Madinah Services',
             description: 'Serving pilgrims in the City of the Prophet',
             images: [
-                { src: '/madinah_prophets_mosque_1765977586459.png', alt: 'Prophet\'s Mosque at Sunset', category: 'Madinah' },
-                { src: '/madinah_night_view_1765977897424.png', alt: 'Madinah Night View', category: 'Madinah' },
+                { src: '/madinah-prophets-mosque.webp', alt: 'Prophet\'s Mosque at Sunset', category: 'Madinah' },
+                { src: '/madinah-night-view.webp', alt: 'Madinah Night View', category: 'Madinah' },
             ]
         },
         {
             title: 'Jeddah & Coastal Cities',
             description: 'Airport transfers and city tours',
             images: [
-                { src: '/jeddah_corniche_sunset_1765978916210.png', alt: 'Jeddah Corniche Sunset', category: 'Jeddah' },
-                { src: '/jeddah_airport_terminal_1765979042538.png', alt: 'Jeddah Airport Terminal', category: 'Jeddah' },
-                { src: '/jeddah_city_night_1765979344807.png', alt: 'Jeddah City Night', category: 'Jeddah' },
+                { src: '/jeddah-corniche-sunset.webp', alt: 'Jeddah Corniche Sunset', category: 'Jeddah' },
+                { src: '/jeddah-airport-terminal.webp', alt: 'Jeddah Airport Terminal', category: 'Jeddah' },
+                { src: '/jeddah-city-night.webp', alt: 'Jeddah City Night', category: 'Jeddah' },
             ]
         },
         {
             title: 'Taif & Mountain Tours',
             description: 'Scenic routes and rose gardens',
             images: [
-                { src: '/taif_mountains_view_1765979609175.png', alt: 'Taif Mountains View', category: 'Taif' },
-                { src: '/taif_rose_gardens_1765980023122.png', alt: 'Taif Rose Gardens', category: 'Taif' },
+                { src: '/taif-mountains-view.webp', alt: 'Taif Mountains View', category: 'Taif' },
+                { src: '/taif-rose-gardens.webp', alt: 'Taif Rose Gardens', category: 'Taif' },
             ]
         },
         {
             title: 'Heritage Sites',
             description: 'Tours to UNESCO World Heritage Sites',
             images: [
-                { src: '/alula_hegra_tombs_1765980544131.png', alt: 'AlUla Hegra Tombs', category: 'AlUla' },
+                { src: '/alula-hegra-tombs.webp', alt: 'AlUla Hegra Tombs', category: 'AlUla' },
             ]
         }
     ];
