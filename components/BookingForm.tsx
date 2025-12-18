@@ -255,33 +255,54 @@ export default function BookingForm() {
                             />
                         </div>
 
-                        <div className="flex gap-2">
-                            <div className="w-[140px] flex-shrink-0">
-                                <Select value={countryCode} onValueChange={setCountryCode}>
-                                    <SelectTrigger className="h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:ring-0 rounded-xl">
-                                        <SelectValue placeholder="Code" />
+                        <div className="space-y-4">
+                            <div className="relative group/input">
+                                <h4 className="text-sm font-medium text-gray-700 mb-1 ml-1">Country</h4>
+                                <div className="absolute left-3 top-9 z-10 text-gray-400">
+                                    <span className="text-lg">{countryCodes.find(c => c.code === countryCode)?.flag}</span>
+                                </div>
+                                <Select
+                                    value={countryCodes.find(c => c.code === countryCode)?.country || 'Saudi Arabia'}
+                                    onValueChange={(value) => {
+                                        const found = countryCodes.find(c => c.country === value);
+                                        if (found) {
+                                            setCountryCode(found.code);
+                                        }
+                                    }}
+                                >
+                                    <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:ring-0 rounded-xl w-full text-left">
+                                        <SelectValue placeholder="Select Country" />
                                     </SelectTrigger>
-                                    <SelectContent>
+                                    <SelectContent className="max-h-[300px]">
                                         {countryCodes.map((c) => (
-                                            <SelectItem key={c.country} value={c.code}>
+                                            <SelectItem key={c.country} value={c.country}>
                                                 <span className="mr-2">{c.flag}</span>
-                                                {c.code}
+                                                {c.country}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
                             </div>
-                            <div className="relative group/input flex-1">
-                                <Phone className="absolute left-3 top-3.5 w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
-                                <Input
-                                    name="customer_phone"
-                                    type="tel"
-                                    placeholder="Number (WhatsApp) *"
-                                    required
-                                    value={formData.customer_phone}
-                                    className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-xl"
-                                    onChange={handleChange}
-                                />
+
+                            <div className="relative group/input">
+                                <h4 className="text-sm font-medium text-gray-700 mb-1 ml-1">WhatsApp Number</h4>
+                                <div className="absolute left-3 top-9 w-full h-full pointer-events-none flex items-center">
+                                    <Phone className="w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
+                                </div>
+                                <div className="flex">
+                                    <div className="h-12 bg-gray-100 border border-r-0 border-gray-300 text-gray-500 flex items-center justify-center px-4 rounded-l-xl font-mono text-sm min-w-[80px] mt-0">
+                                        {countryCode}
+                                    </div>
+                                    <Input
+                                        name="customer_phone"
+                                        type="tel"
+                                        placeholder="Number *"
+                                        required
+                                        value={formData.customer_phone}
+                                        className="pl-4 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-r-xl rounded-l-none border-l-0"
+                                        onChange={handleChange}
+                                    />
+                                </div>
                             </div>
                         </div>
 
