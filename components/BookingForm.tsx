@@ -34,7 +34,6 @@ import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 
 const POPULAR_ROUTES = [
     { id: 'custom', label: 'Custom Location (Enter below)' },
-    // Core intercity routes
     { id: 'jeddah-makkah', from: 'Jeddah Airport', to: 'Makkah Hotel', label: 'Jeddah Airport → Makkah' },
     { id: 'makkah-madinah-hotel', from: 'Makkah Hotel', to: 'Madinah Hotel', label: 'Makkah → Madinah Hotel' },
     { id: 'makkah-madinah-badr-ziyarat', from: 'Makkah', to: 'Madinah (via Badr Ziyarat)', label: 'Makkah → Madinah (via Baddar Ziyarat)' },
@@ -47,7 +46,24 @@ const POPULAR_ROUTES = [
     { id: 'makkah-hotel-jeddah-airport', from: 'Makkah Hotel', to: 'Jeddah Airport', label: 'Makkah Hotel → Jeddah Airport' },
 ];
 
-export default function BookingForm() {
+interface BookingFormProps {
+    variant?: 'default' | 'hero';
+}
+
+export default function BookingForm({ variant = 'default' }: BookingFormProps) {
+    const isHero = variant === 'hero';
+
+    // Dynamic Styles based on variant
+    const containerClasses = isHero
+        ? "bg-transparent w-full max-w-2xl mx-auto relative text-left"
+        : "bg-white border border-gray-200 p-6 sm:p-8 rounded-3xl shadow-xl w-full max-w-2xl mx-auto relative overflow-hidden text-left";
+
+    const textPrimary = isHero ? "text-white" : "text-gray-900";
+    const textSecondary = isHero ? "text-neutral-300" : "text-gray-600";
+    const inputBg = isHero ? "bg-white/10 border-white/20 text-white placeholder:text-neutral-400 focus:bg-black/50 focus:border-amber-500 rounded-none" : "bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white rounded-xl";
+    const labelColor = isHero ? "text-neutral-200" : "text-gray-700";
+    const iconColor = isHero ? "text-neutral-400" : "text-gray-400";
+
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -92,14 +108,12 @@ export default function BookingForm() {
 
         if (serviceParam) {
             setFormData(prev => ({
-                ...prev, // Keep existing fields
+                ...prev,
                 special_requests: prev.special_requests ? `${prev.special_requests}. Service: ${serviceParam}` : `Service: ${serviceParam}`
             }));
-            // If service implies a location (e.g. Airport), we could pre-fill pickup/dropoff too but text is simpler
         }
     }, [searchParams]);
 
-    // Calculate price whenever relevant fields change
     useEffect(() => {
         if (formData.pickup_location && formData.destination && formData.vehicle_type) {
             const price = getPrice(formData.pickup_location, formData.destination, formData.vehicle_type);
@@ -111,8 +125,6 @@ export default function BookingForm() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-
-        // Convert numeric fields to numbers
         const numericFields = ['passengers', 'luggage'];
         setFormData(prev => ({
             ...prev,
@@ -135,10 +147,7 @@ export default function BookingForm() {
         setLoading(true);
 
         try {
-            // Combine country code and phone number
             const fullPhoneNumber = `${countryCode}${formData.customer_phone}`;
-
-            // Include price in special requests if calculated, so it's saved in DB
             const finalFormData = {
                 ...formData,
                 customer_phone: fullPhoneNumber,
@@ -147,46 +156,29 @@ export default function BookingForm() {
                     : formData.special_requests
             };
 
-            // Save to Supabase
             const { data, error } = await supabase
                 .from('bookings')
                 .insert([finalFormData])
                 .select();
 
             if (error) throw error;
-
             console.log('Booking saved successfully:', data[0]);
 
-            // Send emails (non-blocking - don't fail booking if emails fail)
             try {
-                const emailResponse = await fetch('/api/send-booking-emails', {
+                await fetch('/api/send-booking-emails', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         booking: data[0],
-                        price: calculatedPrice // Pass explicitly to API
+                        price: calculatedPrice
                     })
                 });
-
-                if (!emailResponse.ok) {
-                    const errorData = await emailResponse.json().catch(() => ({}));
-                    console.error('Email API error:', {
-                        status: emailResponse.status,
-                        statusText: emailResponse.statusText,
-                        error: errorData
-                    });
-                    // Log full error details
-                    console.error('Full error details:', JSON.stringify(errorData, null, 2));
-                } else {
-                    const result = await emailResponse.json();
-                    console.log('Emails sent successfully:', result);
-                }
             } catch (emailError) {
                 console.error('Email sending failed (booking still saved):', emailError);
             }
 
             setSuccess(true);
-            setStep(4); // Success step
+            setStep(4);
         } catch (error) {
             console.error('Error:', error);
             alert('Booking failed. Please try again or contact us directly.');
@@ -210,36 +202,30 @@ export default function BookingForm() {
     const prevStep = () => setStep(step - 1);
 
     return (
-        <div className="bg-white border border-gray-200 p-6 sm:p-8 rounded-3xl shadow-xl w-full max-w-2xl mx-auto relative overflow-hidden">
+        <div className={containerClasses}>
             {/* Progress Bar */}
             <div className="mb-8">
                 <div className="flex justify-between items-center mb-4">
                     {[1, 2, 3].map((s) => (
                         <div key={s} className="flex items-center">
-                            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all ${step >= s ? 'bg-primary text-black' : 'bg-gray-200 text-gray-500'
+                            <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold transition-all ${step >= s ? 'bg-amber-500 text-black' : 'bg-gray-200 text-gray-500'
                                 }`}>
                                 {step > s ? <Check className="w-5 h-5" /> : s}
                             </div>
                             {s < 3 && (
-                                <div className={`h-1 w-12 sm:w-20 mx-2 transition-all ${step > s ? 'bg-primary' : 'bg-gray-200'
+                                <div className={`h-[2px] w-12 sm:w-20 mx-2 transition-all ${step > s ? 'bg-amber-500' : 'bg-gray-200'
                                     }`} />
                             )}
                         </div>
                     ))}
                 </div>
                 <div className="text-center">
-                    <h3 className="text-xl font-bold text-gray-900">
-                        {step === 1 && 'Your Details'}
-                        {step === 2 && 'Trip & Vehicle'}
+                    <h3 className={`text-lg md:text-xl font-bold ${textPrimary} font-serif`}>
+                        {step === 1 && 'Your Contact Details'}
+                        {step === 2 && 'Trip Information'}
                         {step === 3 && 'Confirm Booking'}
                         {step === 4 && 'Booking Confirmed!'}
                     </h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                        {step === 1 && 'Tell us about yourself'}
-                        {step === 2 && 'Where and when do you need a ride?'}
-                        {step === 3 && 'Review and confirm your booking'}
-                        {step === 4 && 'We\'ll contact you shortly'}
-                    </p>
                 </div>
             </div>
 
@@ -248,40 +234,40 @@ export default function BookingForm() {
                 {step === 1 && (
                     <div className="space-y-5 animate-fade-in-up">
                         <div className="relative group/input">
-                            <User className="absolute left-3 top-3.5 w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
+                            <User className={`absolute left-3 top-3.5 w-4 h-4 ${iconColor} transition-colors`} />
                             <Input
                                 name="customer_name"
                                 placeholder="Full Name *"
                                 required
                                 value={formData.customer_name}
-                                className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-xl"
+                                className={`pl-10 h-12 ${inputBg}`}
                                 onChange={handleChange}
                             />
                         </div>
 
                         <div className="relative group/input">
-                            <Mail className="absolute left-3 top-3.5 w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
+                            <Mail className={`absolute left-3 top-3.5 w-4 h-4 ${iconColor} transition-colors`} />
                             <Input
                                 name="customer_email"
                                 type="email"
                                 placeholder="Email Address *"
                                 required
                                 value={formData.customer_email}
-                                className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-xl"
+                                className={`pl-10 h-12 ${inputBg}`}
                                 onChange={handleChange}
                             />
                         </div>
 
                         <div className="space-y-4">
                             <div className="relative group/input">
-                                <h4 className="text-sm font-medium text-gray-700 mb-1 ml-1">Country</h4>
+                                <h4 className={`text-sm font-medium ${labelColor} mb-1 ml-1`}>Country</h4>
                                 <Popover open={open} onOpenChange={setOpen}>
                                     <PopoverTrigger asChild>
                                         <Button
                                             variant="outline"
                                             role="combobox"
                                             aria-expanded={open}
-                                            className="w-full h-12 justify-between bg-gray-50 border-gray-300 text-gray-900 hover:bg-gray-100/50 hover:text-gray-900 rounded-xl font-normal px-3"
+                                            className={`w-full h-12 justify-between font-normal px-3 ${inputBg} hover:${isHero ? 'bg-white/20' : 'bg-gray-100'}`}
                                         >
                                             {countryCode ? (
                                                 <span className="flex items-center truncate">
@@ -312,12 +298,7 @@ export default function BookingForm() {
                                                                 setOpen(false);
                                                             }}
                                                         >
-                                                            <Check
-                                                                className={cn(
-                                                                    "mr-2 h-4 w-4",
-                                                                    countryCode === country.code ? "opacity-100" : "opacity-0"
-                                                                )}
-                                                            />
+                                                            <Check className={cn("mr-2 h-4 w-4", countryCode === country.code ? "opacity-100" : "opacity-0")} />
                                                             <span className="mr-2 text-lg">{country.flag}</span>
                                                             {country.country}
                                                             <span className="ml-auto text-muted-foreground text-xs">{country.code}</span>
@@ -331,10 +312,10 @@ export default function BookingForm() {
                             </div>
 
                             <div className="relative group/input">
-                                <h4 className="text-sm font-medium text-gray-700 mb-1 ml-1">WhatsApp Number</h4>
+                                <h4 className={`text-sm font-medium ${labelColor} mb-1 ml-1`}>WhatsApp Number</h4>
                                 <div className="flex">
-                                    <div className="h-12 bg-gray-100 border border-r-0 border-gray-300 text-gray-500 flex items-center justify-center px-4 rounded-l-xl font-mono text-sm min-w-[80px] mt-0 gap-2">
-                                        <Phone className="w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
+                                    <div className={`h-12 flex items-center justify-center px-4 font-mono text-sm min-w-[80px] gap-2 border border-r-0 ${isHero ? 'bg-white/5 border-white/20 text-neutral-300 rounded-l-none' : 'bg-gray-100 border-gray-300 text-gray-500 rounded-l-xl'}`}>
+                                        <Phone className={`w-4 h-4 ${iconColor}`} />
                                         {countryCode}
                                     </div>
                                     <Input
@@ -343,7 +324,7 @@ export default function BookingForm() {
                                         placeholder="Number *"
                                         required
                                         value={formData.customer_phone}
-                                        className="pl-4 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-r-xl rounded-l-none border-l-0"
+                                        className={`pl-4 h-12 ${inputBg} !rounded-l-none border-l-0`}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -353,7 +334,7 @@ export default function BookingForm() {
                         <Button
                             type="button"
                             onClick={nextStep}
-                            className="w-full bg-primary hover:bg-primary/90 text-black font-bold py-6 text-lg rounded-xl"
+                            className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-6 text-lg rounded-none shadow-lg transition-transform hover:scale-[1.02]"
                         >
                             Continue <ArrowRight className="w-5 h-5 ml-2" />
                         </Button>
@@ -365,8 +346,8 @@ export default function BookingForm() {
                     <div className="space-y-5 animate-fade-in-up">
 
                         {/* Quick Route Selection */}
-                        <div className="bg-gray-50/50 p-2 rounded-xl border border-dashed border-gray-200">
-                            <label className="text-xs font-semibold text-gray-500 ml-2 mb-1 block">Quick Select Route (Optional)</label>
+                        <div className={`p-2 rounded-xl border border-dashed ${isHero ? 'bg-white/5 border-white/10' : 'bg-gray-50/50 border-gray-200'}`}>
+                            <label className={`text-xs font-semibold ml-2 mb-1 block ${labelColor}`}>Quick Select Route (Optional)</label>
                             <Select onValueChange={(value) => {
                                 if (value === 'custom') {
                                     setFormData(prev => ({ ...prev, pickup_location: '', destination: '' }));
@@ -381,7 +362,7 @@ export default function BookingForm() {
                                     }
                                 }
                             }}>
-                                <SelectTrigger className="w-full bg-white border-gray-200">
+                                <SelectTrigger className={`w-full ${inputBg}`}>
                                     <SelectValue placeholder="Select a popular route..." />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -394,70 +375,58 @@ export default function BookingForm() {
                             </Select>
                         </div>
 
-                        <div className="space-y-1">
-                            <p className="text-xs text-center text-gray-400">- OR Enter Custom Locations -</p>
-                        </div>
-
-                        {/* Route fields */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="relative group/input">
-                                <MapPin className="absolute left-3 top-3.5 w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
+                                <MapPin className={`absolute left-3 top-3.5 w-4 h-4 ${iconColor}`} />
                                 <Input
                                     name="pickup_location"
                                     placeholder="Pickup Location *"
                                     required
                                     value={formData.pickup_location}
-                                    className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-xl"
+                                    className={`pl-10 h-12 ${inputBg}`}
                                     onChange={handleChange}
                                 />
                             </div>
                             <div className="relative group/input">
-                                <MapPin className="absolute left-3 top-3.5 w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
+                                <MapPin className={`absolute left-3 top-3.5 w-4 h-4 ${iconColor}`} />
                                 <Input
                                     name="destination"
                                     placeholder="Destination *"
                                     required
                                     value={formData.destination}
-                                    className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-xl"
+                                    className={`pl-10 h-12 ${inputBg}`}
                                     onChange={handleChange}
                                 />
                             </div>
                         </div>
 
                         {/* Vehicle Selection - under route */}
-                        <div className="space-y-3">
-                            <h4 className="text-lg font-bold text-gray-900">Choose Your Vehicle *</h4>
+                        <div className="space-y-2">
+                            <h4 className={`text-sm font-bold ${textPrimary}`}>Choose Your Vehicle *</h4>
                             <Select
                                 value={formData.vehicle_type || undefined}
                                 onValueChange={(value) => {
                                     const vehicle = vehicles.find(v => v.name === value);
-                                    if (vehicle) {
-                                        selectVehicle(vehicle);
-                                    }
+                                    if (vehicle) selectVehicle(vehicle);
                                 }}
                             >
-                                <SelectTrigger className="w-full bg-white border-gray-200">
+                                <SelectTrigger className={`w-full ${inputBg}`}>
                                     <SelectValue placeholder="Select vehicle type..." />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {vehicles.map((vehicle) => (
                                         <SelectItem key={vehicle.name} value={vehicle.name}>
-                                            {vehicle.name} — {vehicle.passengers} pax, {vehicle.luggage} luggage
+                                            {vehicle.name} — {vehicle.passengers} pax
                                         </SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
-                            {formData.vehicle_type && (
-                                <p className="text-xs text-gray-600">
-                                    Selected: <span className="font-semibold text-gray-900">{formData.vehicle_type}</span>
-                                </p>
-                            )}
                         </div>
 
                         {/* Passenger count */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="relative group/input">
-                                <Users className="absolute left-3 top-3.5 w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
+                                <Users className={`absolute left-3 top-3.5 w-4 h-4 ${iconColor}`} />
                                 <Input
                                     name="passengers"
                                     type="number"
@@ -466,27 +435,26 @@ export default function BookingForm() {
                                     placeholder="Number of Passengers *"
                                     required
                                     value={formData.passengers}
-                                    className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-xl"
+                                    className={`pl-10 h-12 ${inputBg}`}
                                     onChange={handleChange}
                                 />
                             </div>
                         </div>
 
                         {/* Date & time */}
-                        {/* Date & time */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="relative group/input flex flex-col gap-1.5">
-                                <label className="text-sm font-semibold text-gray-700 ml-1">Pickup Date</label>
+                                <label className={`text-xs font-semibold ml-1 ${labelColor}`}>Pickup Date</label>
                                 <Popover>
                                     <PopoverTrigger asChild>
                                         <Button
                                             variant={"outline"}
                                             className={cn(
-                                                "w-full h-12 justify-start text-left font-normal bg-gray-50 border-gray-300 rounded-xl hover:bg-gray-100",
+                                                `w-full h-12 justify-start text-left font-normal ${inputBg} hover:${isHero ? 'bg-white/20' : 'bg-gray-100'}`,
                                                 !formData.pickup_date && "text-muted-foreground"
                                             )}
                                         >
-                                            <CalendarIcon className="mr-2 h-4 w-4 text-gray-500" />
+                                            <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
                                             {formData.pickup_date ? (
                                                 format(new Date(formData.pickup_date), "PPP")
                                             ) : (
@@ -506,9 +474,7 @@ export default function BookingForm() {
                                                     }));
                                                 }
                                             }}
-                                            disabled={(date) =>
-                                                date < new Date(new Date().setHours(0, 0, 0, 0))
-                                            }
+                                            disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
                                             initialFocus
                                         />
                                     </PopoverContent>
@@ -516,16 +482,16 @@ export default function BookingForm() {
                             </div>
 
                             <div className="relative group/input flex flex-col gap-1.5">
-                                <label className="text-sm font-semibold text-gray-700 ml-1">Pickup Time</label>
+                                <label className={`text-xs font-semibold ml-1 ${labelColor}`}>Pickup Time</label>
                                 <Select
                                     value={formData.pickup_time}
                                     onValueChange={(value) =>
                                         setFormData(prev => ({ ...prev, pickup_time: value }))
                                     }
                                 >
-                                    <SelectTrigger className="w-full h-12 bg-gray-50 border-gray-300 rounded-xl">
+                                    <SelectTrigger className={`w-full h-12 ${inputBg}`}>
                                         <div className="flex items-center">
-                                            <Clock className="mr-2 h-4 w-4 text-gray-500" />
+                                            <Clock className="mr-2 h-4 w-4 opacity-50" />
                                             <SelectValue placeholder="Select time" />
                                         </div>
                                     </SelectTrigger>
@@ -537,11 +503,9 @@ export default function BookingForm() {
                                             const date = new Date();
                                             date.setHours(hour);
                                             date.setMinutes(parseInt(minute));
-                                            const displayTime = format(date, "h:mm a");
-
                                             return (
                                                 <SelectItem key={timeString} value={timeString}>
-                                                    {displayTime}
+                                                    {format(date, "h:mm a")}
                                                 </SelectItem>
                                             );
                                         })}
@@ -555,14 +519,14 @@ export default function BookingForm() {
                                 type="button"
                                 onClick={prevStep}
                                 variant="outline"
-                                className="flex-1 py-6 text-lg rounded-xl"
+                                className="flex-1 py-6 text-lg rounded-none border border-white/20"
                             >
                                 <ArrowLeft className="w-5 h-5 mr-2" /> Back
                             </Button>
                             <Button
                                 type="button"
                                 onClick={nextStep}
-                                className="flex-1 bg-primary hover:bg-primary/90 text-black font-bold py-6 text-lg rounded-xl"
+                                className="flex-1 bg-amber-500 hover:bg-amber-600 text-black font-bold py-6 text-lg rounded-none"
                             >
                                 Continue <ArrowRight className="w-5 h-5 ml-2" />
                             </Button>
@@ -573,51 +537,38 @@ export default function BookingForm() {
                 {/* Step 3: Confirmation */}
                 {step === 3 && (
                     <div className="space-y-5 animate-fade-in-up">
-                        <div className="bg-gray-50 rounded-xl p-6 space-y-4">
-                            <h4 className="font-bold text-lg text-gray-900 mb-4">Booking Summary</h4>
+                        <div className={`rounded-xl p-6 space-y-4 border ${isHero ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-100'}`}>
+                            <h4 className={`font-bold text-lg mb-4 ${textPrimary}`}>Booking Summary</h4>
 
-                            <div className="space-y-2 text-sm">
+                            <div className={`space-y-2 text-sm ${textSecondary}`}>
                                 <div className="flex justify-between">
-                                    <span className="text-gray-600">Name:</span>
-                                    <span className="font-semibold text-gray-900">{formData.customer_name}</span>
+                                    <span>Name:</span>
+                                    <span className={`font-semibold ${textPrimary}`}>{formData.customer_name}</span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="text-gray-600">Email:</span>
-                                    <span className="font-semibold text-gray-900">{formData.customer_email}</span>
+                                    <span>Phone:</span>
+                                    <span className={`font-semibold ${textPrimary}`} dir="ltr">{countryCode} {formData.customer_phone}</span>
+                                </div>
+                                <div className={`border-t my-3 ${isHero ? 'border-white/10' : 'border-gray-200'}`}></div>
+                                <div className="flex justify-between">
+                                    <span>From:</span>
+                                    <span className={`font-semibold ${textPrimary}`}>{formData.pickup_location}</span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="text-gray-600">Phone:</span>
-                                    <span className="font-semibold text-gray-900" dir="ltr">{countryCode} {formData.customer_phone}</span>
-                                </div>
-                                <div className="border-t border-gray-200 my-3"></div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">From:</span>
-                                    <span className="font-semibold text-gray-900">{formData.pickup_location}</span>
+                                    <span>To:</span>
+                                    <span className={`font-semibold ${textPrimary}`}>{formData.destination}</span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="text-gray-600">To:</span>
-                                    <span className="font-semibold text-gray-900">{formData.destination}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">Date & Time:</span>
-                                    <span className="font-semibold text-gray-900">{formData.pickup_date} at {formData.pickup_time}</span>
-                                </div>
-                                <div className="border-t border-gray-200 my-3"></div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">Vehicle:</span>
-                                    <span className="font-semibold text-gray-900">{formData.vehicle_type}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">Capacity:</span>
-                                    <span className="font-semibold text-gray-900">{formData.passengers} passengers, {formData.luggage} luggage</span>
+                                    <span>Vehicle:</span>
+                                    <span className={`font-semibold ${textPrimary}`}>{formData.vehicle_type}</span>
                                 </div>
 
-                                <div className="border-t border-gray-200 my-3"></div>
-                                <div className="flex justify-between items-center bg-primary/10 p-3 rounded-lg border border-primary/20">
-                                    <span className="text-gray-800 font-bold flex items-center">
+                                <div className={`border-t my-3 ${isHero ? 'border-white/10' : 'border-gray-200'}`}></div>
+                                <div className="flex justify-between items-center bg-amber-500/10 p-3 rounded-lg border border-amber-500/20">
+                                    <span className="text-amber-500 font-bold flex items-center">
                                         <Wallet className="w-4 h-4 mr-2" /> Total Price:
                                     </span>
-                                    <span className="font-bold text-lg text-black">
+                                    <span className={`font-bold text-lg ${textPrimary}`}>
                                         {calculatedPrice ? `SAR ${calculatedPrice}` : 'Calculated upon confirmation'}
                                     </span>
                                 </div>
@@ -629,14 +580,14 @@ export default function BookingForm() {
                                 type="button"
                                 onClick={prevStep}
                                 variant="outline"
-                                className="flex-1 py-6 text-lg rounded-xl"
+                                className="flex-1 py-6 text-lg rounded-none border-white/20"
                                 disabled={loading}
                             >
                                 <ArrowLeft className="w-5 h-5 mr-2" /> Back
                             </Button>
                             <Button
                                 type="submit"
-                                className="flex-1 bg-primary hover:bg-primary/90 text-black font-bold py-6 text-lg rounded-xl"
+                                className="flex-1 bg-amber-500 hover:bg-amber-600 text-black font-bold py-6 text-lg rounded-none"
                                 disabled={loading}
                             >
                                 {loading ? 'Booking...' : 'Confirm Booking'} <Check className="w-5 h-5 ml-2" />
@@ -648,13 +599,12 @@ export default function BookingForm() {
                 {/* Step 4: Success */}
                 {step === 4 && success && (
                     <div className="text-center space-y-6 animate-fade-in-up py-8">
-                        <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto">
+                        <div className="w-20 h-20 bg-amber-500 rounded-full flex items-center justify-center mx-auto">
                             <Check className="w-10 h-10 text-black" />
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900">Booking Confirmed!</h3>
-                        <p className="text-gray-600">
-                            Thank you for choosing Taxi Service KSA. We've sent a confirmation email to <strong>{formData.customer_email}</strong>.
-                            Our team will contact you shortly to confirm your booking.
+                        <h3 className={`text-2xl font-bold ${textPrimary}`}>Booking Confirmed!</h3>
+                        <p className={textSecondary}>
+                            Thank you for choosing Umrah Taxi. We've sent a confirmation email to <strong>{formData.customer_email}</strong>.
                         </p>
                         <Button
                             type="button"
@@ -679,7 +629,7 @@ export default function BookingForm() {
                                     status: 'pending'
                                 });
                             }}
-                            className="bg-primary hover:bg-primary/90 text-black font-bold py-4 px-8 rounded-xl"
+                            className="bg-amber-500 hover:bg-amber-600 text-black font-bold py-4 px-8 rounded-none"
                         >
                             Make Another Booking
                         </Button>

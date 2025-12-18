@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { MapPin, Phone, Clock, Star, CheckCircle2, Car, Users, Shield } from 'lucide-react';
@@ -11,9 +12,9 @@ import {
 } from '@/components/ui/accordion';
 
 export const metadata: Metadata = {
-    title: 'Taxi Service in Makkah | Umrah Transport & Airport Transfers',
-    description: 'Professional taxi service in Makkah helping pilgrims with Umrah transportation, Jeddah airport transfers, Ziyarat tours, and hotel to Haram rides. Available 24/7 with experienced drivers.',
-    keywords: ['Makkah taxi', 'Umrah taxi Makkah', 'Makkah to Madinah taxi', 'Jeddah airport to Makkah', 'Ziyarat taxi', 'Hotel to Haram taxi'],
+    title: 'Makkah Umrah Taxi | Airport Transfers & Ziyarat',
+    description: 'Reliable Umrah Taxi in Makkah. We specialize in Jeddah airport transfers, Ziyarat tours, and hotel to Haram transportation for pilgrims.',
+    keywords: ['Makkah taxi', 'Umrah taxi Makkah', 'Makkah to Madinah taxi', 'Jeddah airport to Makkah', 'Ziyarat taxi'],
 };
 
 export default function MakkahPage() {
@@ -21,8 +22,8 @@ export default function MakkahPage() {
         { name: 'Airport Transfers', description: 'Jeddah Airport to Makkah hotels' },
         { name: 'Umrah Transportation', description: 'Makkah to Madinah and return' },
         { name: 'Ziyarat Tours', description: 'Holy sites and historical places' },
-        { name: 'Local Taxi Service', description: 'Within Makkah city' },
-        { name: 'Hotel Transfers', description: 'Hotel to Haram and back' },
+        { name: 'Local Transfers', description: 'Hotel to Haram and back' },
+        { name: 'Intercity Taxi', description: 'Transport to Taif & Madinah' },
         { name: 'Group Transport', description: 'For families and groups' },
     ];
 
@@ -44,7 +45,7 @@ export default function MakkahPage() {
 
     const faqs = [
         {
-            question: "How do I book a taxi for Umrah from Makkah to Taneem (Masjid Aisha)?",
+            question: "How do I book an Umrah taxi from Makkah to Taneem (Masjid Aisha)?",
             answer: "You can easily book a round-trip taxi from your Makkah hotel to Masjid Aisha (Taneem) for Ihram. Our drivers know the best routes to minimize travel time."
         },
         {
@@ -70,37 +71,61 @@ export default function MakkahPage() {
             {/* Hero Section with Background Images & Booking Form */}
             <Hero
                 images={makkahImages}
-                h1Text="Makkah Taxi Service | Umrah Transportation & Ziyarat Tours"
+                h1Text="Makkah Umrah Taxi & Ziyarat Tours"
                 title={
-                    <span className="bg-primary text-black px-4 py-2 rounded-lg inline-block decoration-clone leading-snug">
-                        Makkah Taxi Service
+                    <span className="bg-primary text-white px-4 py-2 rounded-lg inline-block decoration-clone leading-snug">
+                        Makkah Umrah Taxi
                     </span>
                 }
-                subtitle="Umrah Transportation"
+                subtitle="Reliable Pilgrimage Transport"
                 location="24/7 Available"
             />
 
             {/* Services Section */}
-            <section className="py-20 px-4 sm:px-6 lg:px-8">
+            {/* Services Section */}
+            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white relative">
+                {/* Highway Visual */}
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-12">
-                        <span className="bg-gray-100 text-black font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block">Our Services</span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-4">
-                            Taxi Services in Makkah
-                        </h2>
-                        <p className="text-gray-600 max-w-2xl mx-auto">
-                            Comprehensive transportation solutions for all your needs in the Holy City
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {services.map((service, index) => (
-                            <div key={index} className="bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary/50 hover:shadow-lg transition-all">
-                                <Car className="w-8 h-8 text-gray-700 mb-4" />
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">{service.name}</h3>
-                                <p className="text-gray-600 text-sm">{service.description}</p>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div className="order-2 lg:order-1 relative group">
+                            <div className="relative h-[550px] w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-50">
+                                <img
+                                    src="/makkah-highway.webp"
+                                    alt="Journey to Makkah on Highway"
+                                    className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-1000"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                                <div className="absolute bottom-8 left-8 text-white">
+                                    <h3 className="text-2xl font-bold mb-1">The Sacred Path</h3>
+                                    <p className="text-gray-300 text-sm">Experience the serenity of the journey to the Haram</p>
+                                </div>
                             </div>
-                        ))}
+                            <div className="absolute -z-10 top-10 -left-10 w-full h-full border-2 border-primary/20 rounded-2xl"></div>
+                        </div>
+
+                        <div className="order-1 lg:order-2">
+                            <span className="bg-primary/10 text-primary font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block mb-4">Makkah Transport</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                                Journey with <br /><span className="text-primary">Dignity & Comfort</span>
+                            </h2>
+                            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                                Whether you are arriving from Jeddah or moving between Makkah and Madinah, our fleet ensures your focus remains on your worship, not the road.
+                            </p>
+
+                            <div className="space-y-4">
+                                {services.map((service, index) => (
+                                    <div key={index} className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-primary/40 transition-colors">
+                                        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                                            <Car className="w-5 h-5" />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold text-gray-900">{service.name}</h3>
+                                            <p className="text-sm text-gray-500">{service.description}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -110,9 +135,9 @@ export default function MakkahPage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <span className="bg-gray-100 text-black font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block mb-4">Why Choose Us</span>
+                            <span className="bg-primary/10 text-primary font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block mb-4">Why Choose Us</span>
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                                Trusted Taxi Service in Makkah
+                                Trusted Umrah Taxi in Makkah
                             </h2>
                             <p className="text-gray-600 mb-8">
                                 We understand the sacred nature of your journey. Our drivers are experienced, respectful, and knowledgeable about Makkah and its holy sites.
@@ -146,6 +171,50 @@ export default function MakkahPage() {
                                 <Shield className="w-8 h-8 text-gray-700 mx-auto mb-3" />
                                 <div className="text-3xl font-bold text-gray-900 mb-1">100%</div>
                                 <div className="text-sm text-gray-600">Safe</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Sacred Sites Grid */}
+            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-neutral-900 text-white relative">
+                <div className="absolute inset-0 bg-[url('/pattern-grid.png')] opacity-[0.05]"></div>
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="text-center mb-16">
+                        <span className="text-amber-500 font-bold tracking-[0.2em] uppercase text-xs">Journey of Faith</span>
+                        <h2 className="text-3xl md:text-5xl font-bold font-serif mt-3 mb-6">Explore Holy Sites</h2>
+                        <p className="text-neutral-400 max-w-2xl mx-auto">
+                            Beyond the Haram, Makkah holds the history of Islam. Let us guide you to the places where revelation descended.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="group relative h-80 rounded-2xl overflow-hidden cursor-pointer border border-white/10">
+                            <Image
+                                src="/zip-hira.webp"
+                                alt="Cave of Hira - Jabal Al Noor"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-8">
+                                <h3 className="text-2xl font-bold font-serif mb-2 text-white group-hover:text-amber-500 transition-colors">Jabal Al-Nour</h3>
+                                <p className="text-sm text-neutral-300">The Mountain of Light & Cave of Hira.</p>
+                            </div>
+                        </div>
+
+                        <div className="group relative h-80 rounded-2xl overflow-hidden cursor-pointer border border-white/10">
+                            <Image
+                                src="/zip-mina.webp"
+                                alt="Mina Tent City"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-8">
+                                <h3 className="text-2xl font-bold font-serif mb-2 text-white group-hover:text-amber-500 transition-colors">Mina Tent City</h3>
+                                <p className="text-sm text-neutral-300">The largest tent city in the world.</p>
                             </div>
                         </div>
                     </div>

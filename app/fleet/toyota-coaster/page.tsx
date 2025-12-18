@@ -11,9 +11,9 @@ import {
 } from '@/components/ui/accordion';
 
 export const metadata: Metadata = {
-    title: 'Toyota Coaster - Large Group Bus | Taxi Service KSA',
-    description: 'Book our Toyota Coaster bus for large groups in Saudi Arabia. 17 passengers, perfect for corporate events and tour groups.',
-    keywords: ['Toyota Coaster rental Saudi Arabia', 'tour bus KSA', 'large group transport', '17 seater bus'],
+    title: 'Toyota Coaster - Large Group Bus | Umrah Taxi',
+    description: 'Book our Toyota Coaster bus for large Umrah groups. 17 passengers, perfect for Ziyarat tours and group pilgrimages.',
+    keywords: ['Toyota Coaster rental Makkah', 'tour bus Umrah', 'large group transport Saudi', '17 seater bus'],
 };
 
 export default function ToyotaCoasterPage() {

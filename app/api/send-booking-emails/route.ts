@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 
 // Initialize Resend with API key check
 const resendApiKey = process.env.RESEND_API_KEY;
-const adminEmail = process.env.ADMIN_EMAIL || 'taxiserviceksa9988@gmail.com';
+const adminEmail = process.env.ADMIN_EMAIL || 'umrahtaxi22@gmail.com';
 
 if (!resendApiKey) {
     console.error('RESEND_API_KEY is not set in environment variables');
@@ -122,9 +122,9 @@ export async function POST(request: NextRequest) {
         let customerEmail;
         try {
             customerEmail = await resend.emails.send({
-                from: 'Taxi Service KSA <noreply@taxiserviceksa.com>',
+                from: 'Umrah Taxi <bookings@umrahtaxi.site>',
                 to: [booking.customer_email],
-                subject: 'Booking Confirmation - Taxi Service KSA',
+                subject: `Booking Confirmation - Umrah Taxi (#${booking.id.slice(0, 8)})`,
                 html: `
                 <!DOCTYPE html>
                 <html>
@@ -132,7 +132,7 @@ export async function POST(request: NextRequest) {
                     <style>
                         body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
                         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-                        .header { background: linear-gradient(135deg, #C6FF00 0%, #B8E600 100%); padding: 30px; text-center; border-radius: 10px 10px 0 0; }
+                        .header { background: linear-gradient(135deg, #C6FF00 0%, #B8E600 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
                         .header h1 { color: #000; margin: 0; font-size: 28px; }
                         .content { background: #fff; padding: 30px; border: 1px solid #e0e0e0; }
                         .booking-details { background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; }
@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
                         </div>
                         <div class="content">
                             <p>Dear <strong>${booking.customer_name}</strong>,</p>
-                            <p>Thank you for choosing Taxi Service KSA! Your booking has been confirmed.</p>
+                            <p>Thank you for choosing Umrah Taxi! Your booking has been confirmed.</p>
                             
                             <div class="booking-details">
                                 <h3 style="margin-top: 0; color: #000;">Booking Details</h3>
@@ -207,13 +207,13 @@ export async function POST(request: NextRequest) {
                             </center>
                             
                             <p style="margin-top: 30px; font-size: 14px; color: #666;">
-                                If you have any questions, feel free to reach out to us at <a href="mailto:taxiserviceksa9988@gmail.com">taxiserviceksa9988@gmail.com</a>
+                                If you have any questions, feel free to reach out to us at <a href="mailto:umrahtaxi22@gmail.com">umrahtaxi22@gmail.com</a>
                             </p>
                         </div>
                         <div class="footer">
-                            <p><strong>Taxi Service KSA</strong></p>
-                            <p>Premium Chauffeur Services in Saudi Arabia</p>
-                            <p>Jeddah | Makkah | Madinah | Riyadh</p>
+                            <p><strong>Umrah Taxi</strong></p>
+                            <p>Premium Umrah & Hajj Transport Services</p>
+                            <p>Jeddah | Makkah | Madinah</p>
                         </div>
                     </div>
                 </body>
@@ -231,7 +231,7 @@ export async function POST(request: NextRequest) {
             // Check if it's a domain verification error
             const errorMessage = customerEmailError.message || '';
             if (errorMessage.includes('domain') || errorMessage.includes('verify') || errorMessage.includes('not verified')) {
-                throw new Error(`Email domain not verified. Please verify 'taxiserviceksa.com' in Resend dashboard. Error: ${customerEmailError.message}`);
+                throw new Error(`Email domain not verified. Please verify 'umrahtaxi.site' in Resend dashboard. Error: ${customerEmailError.message}`);
             }
 
             throw new Error(`Customer email failed: ${customerEmailError.message}`);
@@ -242,7 +242,7 @@ export async function POST(request: NextRequest) {
         try {
             console.log('Sending admin email to:', adminEmail);
             adminEmailResult = await resend.emails.send({
-                from: 'Taxi Service KSA <noreply@taxiserviceksa.com>',
+                from: 'Umrah Taxi System <system@umrahtaxi.site>',
                 to: [adminEmail],
                 subject: `🚗 New Booking - ${booking.customer_name} ${price ? `(SAR ${price})` : ''}`,
                 html: `

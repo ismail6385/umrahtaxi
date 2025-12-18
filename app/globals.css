@@ -4,84 +4,78 @@
 
 @layer base {
   :root {
-    /* InDrive-Inspired Theme - Bright Lime Green & Dark */
+    /* Luxury Black & Gold Theme */
     --background: 0 0% 100%;
-    /* Pure White */
-    --foreground: 0 0% 9%;
-    /* Almost Black Text */
+    --foreground: 0 0% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
+    --popover-foreground: 0 0% 10%;
 
-    /* Primary: Bright Lime Green - InDrive Style */
-    --primary: 75 100% 57%;
-    /* Lime Green #C6FF00 */
-    --primary-foreground: 0 0% 9%;
-    /* Dark text on lime */
+    /* Primary: Jet Black - The definition of luxury */
+    --primary: 0 0% 9%;
+    /* #171717 - Neutral 900 */
+    --primary-foreground: 45 25% 95%;
+    /* Soft gold/white text */
 
-    /* Secondary: Dark Gray/Black - Modern */
-    --secondary: 0 0% 15%;
-    /* Dark Gray #262626 */
+    /* Secondary: Metallic Gold */
+    --secondary: 43 55% 55%;
+    /* #C5A059 - Classic Gold */
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
 
-    /* Accent: Bright Lime - Highlights */
-    --accent: 75 100% 57%;
-    --accent-foreground: 0 0% 9%;
+    /* Accent: Rich Gold for buttons/highlights */
+    --accent: 43 55% 55%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 75 100% 57%;
-    --radius: 0.75rem;
+    --border: 0 0% 92%;
+    --input: 0 0% 92%;
+    --ring: 0 0% 9%;
 
-    /* Custom Brand Colors - InDrive Style */
-    --lime: 75 100% 57%;
-    /* Main Lime #C6FF00 */
-    --lime-light: 75 100% 65%;
-    /* Lighter Lime */
-    --lime-dark: 75 100% 50%;
-    /* Darker Lime */
+    --radius: 0.5rem;
 
-    --dark: 0 0% 15%;
-    /* Dark Gray */
-    --dark-light: 0 0% 20%;
-    --dark-dark: 0 0% 9%;
-    /* Almost Black */
-
-    --gray-bg: 0 0% 98%;
-    /* Light Gray Background */
-    --gray-light: 0 0% 96%;
-    --gray-medium: 0 0% 85%;
+    /* Custom Brand Colors - Luxury Palette */
+    --gold-metallic: 43 55% 55%;
+    --gold-light: 43 60% 75%;
+    --black-rich: 0 0% 5%;
   }
 
   .dark {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
-    --primary: 75 100% 57%;
+    --background: 0 0% 5%;
+    /* Deep Black */
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
     --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 15%;
+
+    --secondary: 43 55% 55%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 75 100% 57%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 62% 31%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 75 100% 57%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 43 55% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 83%;
   }
 }
 
@@ -125,6 +119,13 @@
 
   .delay-300 {
     animation-delay: 300ms;
+  }
+
+  .pattern-grid-lg {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 
   @keyframes slow-zoom {

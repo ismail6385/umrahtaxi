@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { FileText, AlertCircle, CheckCircle, XCircle, Scale } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'Terms and Conditions | Taxi Service KSA',
-    description: 'Read the terms and conditions for using Taxi Service KSA. Understand your rights and responsibilities when booking our taxi and chauffeur services.',
+    title: 'Terms and Conditions | Umrah Taxi',
+    description: 'Read the terms and conditions for using Umrah Taxi. Understand your rights and responsibilities when booking our taxi and chauffeur services.',
     keywords: ['terms and conditions', 'service agreement', 'user terms', 'booking terms'],
 };
 
@@ -22,14 +22,14 @@ export default function TermsConditionsPage() {
                         Terms and Conditions
                     </h1>
                     <p className="text-lg text-gray-600">
-                        Last Updated: December 17, 2024
+                        Last Updated: December 18, 2024
                     </p>
                 </div>
 
                 {/* Introduction */}
                 <div className="bg-white rounded-2xl p-8 shadow-sm mb-8">
                     <p className="text-gray-700 leading-relaxed mb-4">
-                        Welcome to <strong>Taxi Service KSA</strong>. These Terms and Conditions govern your use of our taxi and chauffeur services in Saudi Arabia. By booking or using our services, you agree to comply with and be bound by these terms.
+                        Welcome to <strong>Umrah Taxi</strong>. These Terms and Conditions govern your use of our taxi and chauffeur services in Saudi Arabia. By booking or using our services, you agree to comply with and be bound by these terms.
                     </p>
                     <p className="text-gray-700 leading-relaxed">
                         Please read these terms carefully before making a booking. If you do not agree with any part of these terms, please do not use our services.
@@ -40,7 +40,7 @@ export default function TermsConditionsPage() {
                 <div className="bg-white rounded-2xl p-8 shadow-sm mb-8">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">1. Definitions</h2>
                     <ul className="space-y-3 text-gray-700">
-                        <li><strong>"Company," "We," "Us," "Our"</strong> refers to Taxi Service KSA</li>
+                        <li><strong>"Company," "We," "Us," "Our"</strong> refers to Umrah Taxi</li>
                         <li><strong>"Customer," "You," "Your"</strong> refers to the person booking or using our services</li>
                         <li><strong>"Services"</strong> refers to taxi, chauffeur, and transportation services we provide</li>
                         <li><strong>"Driver"</strong> refers to our professional chauffeurs and drivers</li>
@@ -303,7 +303,7 @@ export default function TermsConditionsPage() {
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">10. Intellectual Property</h2>
 
                     <p className="text-gray-700">
-                        All content on our website, including text, graphics, logos, images, and software, is the property of Taxi Service KSA and protected by copyright laws. You may not reproduce, distribute, or use our content without written permission.
+                        All content on our website, including text, graphics, logos, images, and software, is the property of Umrah Taxi and protected by copyright laws. You may not reproduce, distribute, or use our content without written permission.
                     </p>
                 </div>
 

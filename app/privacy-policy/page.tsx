@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { Shield, Lock, Eye, UserCheck, Database, Mail, Phone } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'Privacy Policy | Taxi Service KSA',
-    description: 'Learn how Taxi Service KSA collects, uses, and protects your personal information. Your privacy and data security are our top priorities.',
+    title: 'Privacy Policy | Umrah Taxi',
+    description: 'Learn how Umrah Taxi collects, uses, and protects your personal information. Your privacy and data security are our top priorities.',
     keywords: ['privacy policy', 'data protection', 'personal information', 'GDPR compliance'],
 };
 
@@ -22,14 +22,14 @@ export default function PrivacyPolicyPage() {
                         Privacy Policy
                     </h1>
                     <p className="text-lg text-gray-600">
-                        Last Updated: December 17, 2024
+                        Last Updated: December 18, 2024
                     </p>
                 </div>
 
                 {/* Introduction */}
                 <div className="bg-white rounded-2xl p-8 shadow-sm mb-8">
                     <p className="text-gray-700 leading-relaxed mb-4">
-                        At <strong>Taxi Service KSA</strong>, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your data when you use our taxi and chauffeur services in Saudi Arabia.
+                        At <strong>Umrah Taxi</strong>, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your data when you use our taxi and chauffeur services in Saudi Arabia.
                     </p>
                     <p className="text-gray-700 leading-relaxed">
                         By using our services, you agree to the collection and use of information in accordance with this policy. We encourage you to read this document carefully to understand our practices.

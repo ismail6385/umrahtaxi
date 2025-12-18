@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { MapPin, Phone, Clock, Star, CheckCircle2, Car, Users, Shield, Plane } from 'lucide-react';
 import Hero from '@/components/Hero';
@@ -12,28 +13,28 @@ import {
 import JsonLdFAQ from '@/components/JsonLdFAQ';
 
 export const metadata: Metadata = {
-    title: 'Taxi Service in Jeddah | Airport Transfer & Makkah Connection',
-    description: 'Professional taxi service in Jeddah helping travelers with King Abdulaziz Airport transfers, Makkah connections, city tours, and corporate transport.',
-    keywords: ['Jeddah taxi', 'KAIA airport taxi', 'Jeddah to Makkah taxi', 'Jeddah airport transfer'],
+    title: 'Jeddah Taxi Service | Airport Transfer to Makkah',
+    description: 'Reliable Umrah Taxi service in Jeddah. We specialize in King Abdulaziz Airport transfers to Makkah and Madinah hotels for pilgrims.',
+    keywords: ['Jeddah taxi', 'Jeddah airport to Makkah', 'Umrah taxi Jeddah', 'Haramain transfer', 'Jeddah airport taxi'],
 };
 
 export default function JeddahPage() {
     const services = [
-        { name: 'Airport Transfers', description: 'KAIA to any destination' },
-        { name: 'Makkah Transport', description: 'Jeddah to Makkah (1-1.5 hours)' },
-        { name: 'Madinah Transport', description: 'Jeddah to Madinah (4-5 hours)' },
-        { name: 'Corporate Chauffeur', description: 'Business meetings & events' },
-        { name: 'City Tours', description: 'Jeddah Corniche & attractions' },
-        { name: 'Hourly Rental', description: 'Flexible hourly service' },
+        { name: 'Umrah Airport Pickup', description: 'Meet & Greet at KAIA Terminals' },
+        { name: 'Makkah Transfer', description: 'Jeddah to Makkah (1-1.5 hours)' },
+        { name: 'Madinah Transfer', description: 'Jeddah to Madinah (4-5 hours)' },
+        { name: 'Ziyarat Tours', description: 'Visit historic Jeddah & Mosques' },
+        { name: 'Family Vans', description: 'Spacious vehicles for families' },
+        { name: 'VIP Service', description: 'Luxury GMC Yukon for comfort' },
     ];
 
     const features = [
-        'Professional drivers',
-        'Luxury vehicles',
+        'Experienced drivers',
+        'Clean & spacious cars',
         'Flight tracking',
-        '24/7 availability',
+        'Prayer time stops',
         'Meet & greet service',
-        'Fixed pricing',
+        'Fair fixed rates',
     ];
 
     const jeddahImages = [
@@ -45,23 +46,23 @@ export default function JeddahPage() {
     const faqs = [
         {
             question: "How much is a taxi from Jeddah Airport to Makkah?",
-            answer: "Our taxi rates from Jeddah Airport (KAIA) to Makkah start from SAR 200 depending on the vehicle type. We offer fixed pricing with no hidden charges for GMC Yukon, Camry, and Hiace vans."
+            answer: "Our reduced rates for Umrah pilgrims start from SAR 200 depending on the vehicle. Use our booking form for an instant quote for GMC Yukon, Camry, or Hiace."
         },
         {
             question: "Where will the driver meet me at Jeddah Airport?",
-            answer: "For Terminal 1, our driver will meet you at the arrival hall with a name sign. We track your flight to ensure we are there when you land, even if your flight is delayed."
+            answer: "For Terminal 1, 1 North, and Hajj Terminal, our driver will wait at the arrival hall with your name on a signboard. We track flights to ensure timely pickup."
         },
         {
             question: "Can I book a taxi from Jeddah to Madinah directly?",
-            answer: "Yes, we provide direct intercity taxi service from Jeddah to Madinah. The journey takes approximately 4 hours via the Haramain route, offering a comfortable and private ride."
+            answer: "Yes, we provide direct transfer from Jeddah Airport to Madinah hotels. The journey takes about 4-5 hours in a comfortable, air-conditioned vehicle."
         },
         {
             question: "Is your taxi service available 24/7 at Jeddah Airport?",
-            answer: "Yes, Taxi Service KSA operates 24/7 at King Abdulaziz International Airport. Whether your flight lands at 2 AM or 2 PM, our chauffeurs are ready to serve you."
+            answer: "Yes, Umrah Taxi operates 24/7. Whether you arrive for Umrah late at night or early morning, we are ready to serve you."
         },
         {
             question: "Do you provide child seats for families?",
-            answer: "Yes, we offer complimentary child seats upon request. Please mention this requirement in the booking form to ensure safety for your little ones during the Jeddah to Makkah journey."
+            answer: "Yes, we offer complimentary child seats upon request. Please mention this in the booking form for your family's safety."
         }
     ];
 
@@ -70,40 +71,156 @@ export default function JeddahPage() {
             <JsonLdFAQ faqs={faqs} />
             <Hero
                 images={jeddahImages}
-                h1Text="Jeddah Taxi Service | Airport Transfer to Makkah & Madinah"
+                h1Text="Jeddah Airport Taxi to Makkah & Madinah"
                 title={
-                    <span className="bg-primary text-black px-4 py-2 rounded-lg inline-block decoration-clone leading-snug">
-                        Jeddah Taxi Service
+                    <span className="bg-primary text-white px-4 py-2 rounded-lg inline-block decoration-clone leading-snug">
+                        Jeddah Umrah Taxi
                     </span>
                 }
-                subtitle="Airport Transfers"
-                location="To Makkah & Madinah"
+                subtitle="Reliable Pilgrimage Transport"
+                location="Jeddah ⇄ Makkah"
             />
 
-            <section className="py-20 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-12">
-                        <span className="bg-gray-100 text-black font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block">Our Services</span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-4">
-                            Taxi Services in Jeddah
-                        </h2>
-                        <p className="text-gray-600 max-w-2xl mx-auto">
-                            Gateway to the Holy Cities - Professional transport solutions
+            <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 -skew-x-12 pointer-events-none"></div>
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div className="space-y-8">
+                            <div>
+                                <span className="bg-primary/10 text-primary font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block">Jeddah Services</span>
+                                <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mt-4 mb-4 leading-tight">
+                                    The Gateway to <br /> <span className="text-primary">The Holy Cities</span>
+                                </h2>
+                                <p className="text-gray-600 text-lg leading-relaxed">
+                                    Start your spiritual journey the right way. Our premium transfer service from King Abdulaziz International Airport (KAIA) ensures you arrive at the Haram in Makkah refreshed and ready for Umrah.
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                {services.map((service, index) => (
+                                    <div key={index} className="bg-white p-5 rounded-xl border border-gray-100 hover:border-primary/30 hover:shadow-lg transition-all group">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            {service.name.includes('Airport') ? <Plane className="w-5 h-5 text-primary" /> : <Car className="w-5 h-5 text-primary" />}
+                                            <h3 className="font-bold text-gray-900 group-hover:text-primary transition-colors">{service.name}</h3>
+                                        </div>
+                                        <p className="text-gray-500 text-sm pl-8 border-l border-gray-100">{service.description}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="relative">
+                            <div className="relative h-[600px] w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                                <Image
+                                    src="/jeddah-corniche-road.webp"
+                                    alt="Luxury Car on Jeddah Corniche"
+                                    fill
+                                    className="object-cover transform hover:scale-105 transition-transform duration-700"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                <div className="absolute bottom-6 left-6 text-white p-4">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <MapPin className="w-5 h-5 text-primary" />
+                                        <span className="font-bold">Jeddah Corniche</span>
+                                    </div>
+                                    <p className="text-sm opacity-90">Scenic coastal route transfers available</p>
+                                </div>
+                            </div>
+                            {/* Decorative Elements */}
+                            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/10 rounded-full z-[-1]"></div>
+                            <div className="absolute -top-6 -left-6 w-20 h-20 bg-primary/10 rounded-full z-[-1]"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Bride of the Red Sea Gallery */}
+            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-neutral-900 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/pattern-grid.png')] opacity-[0.05]"></div>
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="text-center mb-16">
+                        <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs">Coastal Jewel</span>
+                        <h2 className="text-3xl md:text-5xl font-bold text-white font-serif mt-3 mb-6">The Bride of the Red Sea</h2>
+                        <p className="text-neutral-400 max-w-2xl mx-auto">
+                            Experience the vibrant culture and stunning waterfront of Saudi Arabia's most dynamic city.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {services.map((service, index) => (
-                            <div key={index} className="bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary/50 hover:shadow-lg transition-all">
-                                {service.name === 'Airport Transfers' ? (
-                                    <Plane className="w-8 h-8 text-gray-700 mb-4" />
-                                ) : (
-                                    <Car className="w-8 h-8 text-gray-700 mb-4" />
-                                )}
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">{service.name}</h3>
-                                <p className="text-gray-600 text-sm">{service.description}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
+                        {/* Main Feature - Floating Mosque */}
+                        <div className="md:col-span-8 md:row-span-2 relative group rounded-2xl overflow-hidden border border-white/10 h-80 md:h-full">
+                            <Image
+                                src="/jeddah-floating-mosque.webp"
+                                alt="Al-Rahma Floating Mosque"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-8">
+                                <h3 className="text-2xl font-bold text-white font-serif mb-2">Floating Mosque</h3>
+                                <p className="text-primary text-sm uppercase tracking-widest">Al-Rahma Mosque</p>
                             </div>
-                        ))}
+                        </div>
+
+                        {/* Top Right - Al Balad */}
+                        <div className="md:col-span-4 relative group rounded-2xl overflow-hidden border border-white/10 h-64 md:h-auto">
+                            <Image
+                                src="/jeddah-al-balad.webp"
+                                alt="Al Balad Historic District"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">Historic Al Balad</h3>
+                                <p className="text-primary text-xs uppercase tracking-widest">UNESCO World Heritage</p>
+                            </div>
+                        </div>
+
+                        {/* Middle Right - King Fahd Fountain */}
+                        <div className="md:col-span-4 relative group rounded-2xl overflow-hidden border border-white/10 h-64 md:h-auto">
+                            <Image
+                                src="/jeddah-fountain.webp"
+                                alt="King Fahd's Fountain"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">King Fahd's Fountain</h3>
+                                <p className="text-primary text-xs uppercase tracking-widest">Tallest in World</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Bottom Row */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div className="relative group rounded-2xl overflow-hidden border border-white/10 h-64">
+                            <Image
+                                src="/jeddah-red-sea-mall.webp"
+                                alt="Red Sea Mall"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">Red Sea Mall</h3>
+                                <p className="text-primary text-xs uppercase tracking-widest">Premier Shopping</p>
+                            </div>
+                        </div>
+                        <div className="relative group rounded-2xl overflow-hidden border border-white/10 h-64">
+                            <Image
+                                src="/jeddah-yacht-club.webp"
+                                alt="Jeddah Yacht Club"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">Yacht Club</h3>
+                                <p className="text-primary text-xs uppercase tracking-widest">Luxury Marina</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -112,17 +229,17 @@ export default function JeddahPage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <span className="bg-gray-100 text-black font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block mb-4">Why Choose Us</span>
+                            <span className="bg-primary/10 text-primary font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block mb-4">Why Choose Us</span>
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                                Trusted Taxi Service in Jeddah
+                                Trusted Umrah Taxi in Jeddah
                             </h2>
                             <p className="text-gray-600 mb-8">
-                                Your reliable partner for airport transfers and intercity travel. We track your flight and ensure timely pickups.
+                                Your reliable partner for airport transfers to Makkah and Madinah. We understand the importance of your spiritual journey.
                             </p>
                             <ul className="space-y-4">
                                 {features.map((feature, index) => (
                                     <li key={index} className="flex items-center text-gray-700">
-                                        <CheckCircle2 className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
+                                        <CheckCircle2 className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
                                         {feature}
                                     </li>
                                 ))}
@@ -130,14 +247,14 @@ export default function JeddahPage() {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="bg-gray-50 p-6 rounded-2xl text-center border border-gray-200">
-                                <Clock className="w-8 h-8 text-gray-700 mx-auto mb-3" />
+                                <Clock className="w-8 h-8 text-primary mx-auto mb-3" />
                                 <div className="text-3xl font-bold text-gray-900 mb-1">24/7</div>
                                 <div className="text-sm text-gray-600">Available</div>
                             </div>
                             <div className="bg-gray-50 p-6 rounded-2xl text-center border border-gray-200">
-                                <Users className="w-8 h-8 text-gray-700 mx-auto mb-3" />
-                                <div className="text-3xl font-bold text-gray-900 mb-1">3000+</div>
-                                <div className="text-sm text-gray-600">Happy Customers</div>
+                                <Users className="w-8 h-8 text-primary mx-auto mb-3" />
+                                <div className="text-3xl font-bold text-gray-900 mb-1">10k+</div>
+                                <div className="text-sm text-gray-600">Pilgrims Served</div>
                             </div>
                             <div className="bg-gray-50 p-6 rounded-2xl text-center border border-gray-200">
                                 <Star className="w-8 h-8 text-gray-700 mx-auto mb-3" />

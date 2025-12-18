@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: ['/api/', '/admin/'],
         },
-        sitemap: 'https://taxiserviceksa.com/sitemap.xml',
+        sitemap: 'https://umrahtaxi.site/sitemap.xml',
     }
 }

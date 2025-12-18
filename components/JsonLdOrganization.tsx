@@ -4,20 +4,20 @@ export default function JsonLdOrganization() {
     const organizationSchema = {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "Taxi Service KSA",
-        "alternateName": "TaxiServiceKSA",
-        "url": "https://taxiserviceksa.com",
-        "logo": "https://taxiserviceksa.com/logo.png",
-        "description": "Premium chauffeur and taxi services across Saudi Arabia including airport transfers, Umrah transportation, and luxury intercity travel.",
+        "name": "Umrah Taxi",
+        "alternateName": "UmrahTaxi",
+        "url": "https://umrahtaxi.site",
+        "logo": "https://umrahtaxi.site/logo.png",
+        "description": "Premium Umrah taxi and Hajj transport services across Saudi Arabia including airport transfers, Ziyarat tours, and intercity travel.",
         "address": {
             "@type": "PostalAddress",
             "addressCountry": "SA",
             "addressRegion": "Makkah Province"
         },
         "sameAs": [
-            "https://www.facebook.com/taxiserviceksa",
-            "https://www.instagram.com/taxiserviceksa",
-            "https://twitter.com/taxiserviceksa"
+            "https://www.facebook.com/umrahtaxi",
+            "https://www.instagram.com/umrahtaxi",
+            "https://twitter.com/umrahtaxi"
         ],
         "contactPoint": {
             "@type": "ContactPoint",

@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { MapPin, Phone, Clock, Star, CheckCircle2, Car, Users, Shield, Mountain } from 'lucide-react';
 import Hero from '@/components/Hero';
@@ -98,6 +99,97 @@ export default function TaifPage() {
                                 <p className="text-gray-600 text-sm">{service.description}</p>
                             </div>
                         ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* City of Roses Gallery */}
+            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-neutral-900 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/pattern-grid.png')] opacity-[0.05]"></div>
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="text-center mb-16">
+                        <span className="text-pink-500 font-bold tracking-[0.2em] uppercase text-xs">Summer Capital</span>
+                        <h2 className="text-3xl md:text-5xl font-bold text-white font-serif mt-3 mb-6">Discover the City of Roses</h2>
+                        <p className="text-neutral-400 max-w-2xl mx-auto">
+                            From the misty peaks of Al Hada to the fragrant rose gardens, experience the refreshing beauty of Taif.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
+                        {/* Main Feature - Teleferique */}
+                        <div className="md:col-span-8 md:row-span-2 relative group rounded-2xl overflow-hidden border border-white/10 h-80 md:h-full">
+                            <Image
+                                src="/taif-teleferique.webp"
+                                alt="Taif Cable Car (Teleferique)"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-8">
+                                <h3 className="text-2xl font-bold text-white font-serif mb-2">Al Hada Cable Car</h3>
+                                <p className="text-pink-500 text-sm uppercase tracking-widest">Scenic Mountain Ride</p>
+                            </div>
+                        </div>
+
+                        {/* Top Right - Rose Farm */}
+                        <div className="md:col-span-4 relative group rounded-2xl overflow-hidden border border-white/10 h-64 md:h-auto">
+                            <Image
+                                src="/taif-rose-farm.webp"
+                                alt="Taif Rose Farm"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">Rose Gardens</h3>
+                                <p className="text-pink-500 text-xs uppercase tracking-widest">Fragrant Blooms</p>
+                            </div>
+                        </div>
+
+                        {/* Middle Right - Shubra Palace */}
+                        <div className="md:col-span-4 relative group rounded-2xl overflow-hidden border border-white/10 h-64 md:h-auto">
+                            <Image
+                                src="/taif-shubra-palace.webp"
+                                alt="Shubra Palace Museum"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">Shubra Palace</h3>
+                                <p className="text-pink-500 text-xs uppercase tracking-widest">Royal Heritage</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Bottom Row */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div className="relative group rounded-2xl overflow-hidden border border-white/10 h-64">
+                            <Image
+                                src="/taif-al-hada.webp"
+                                alt="Al Hada Mountain Road"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">Al Hada Mountain</h3>
+                                <p className="text-pink-500 text-xs uppercase tracking-widest">Winding Roads</p>
+                            </div>
+                        </div>
+                        <div className="relative group rounded-2xl overflow-hidden border border-white/10 h-64">
+                            <Image
+                                src="/taif-saiysad-park.webp"
+                                alt="Saiysad National Park"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">Saiysad Park</h3>
+                                <p className="text-pink-500 text-xs uppercase tracking-widest">Nature Reserve</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

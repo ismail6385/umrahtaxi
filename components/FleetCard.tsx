@@ -15,61 +15,67 @@ interface FleetCardProps {
 export default function FleetCard({ name, image, passengers, luggage, features, href }: FleetCardProps) {
     return (
         <Link href={href} className="block group h-full">
-            <div className="h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col">
+            <div className="h-full bg-neutral-900 rounded-none overflow-hidden transition-all duration-300 border border-white/10 hover:border-amber-500/50 hover:bg-neutral-800 flex flex-col group relative">
+
+                {/* Decorative Corner */}
+                <div className="absolute top-0 right-0 w-12 h-12 bg-amber-500/10 -mr-6 -mt-6 rotate-45 group-hover:bg-amber-500 transition-colors duration-500"></div>
 
                 {/* Image */}
-                <div className="relative h-56 w-full bg-gray-100 overflow-hidden">
+                <div className="relative h-64 w-full bg-neutral-800 overflow-hidden">
                     <Image
                         src={image}
                         alt={name}
                         fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="object-cover group-hover:scale-110 transition-transform duration-700 grayscale-[20%] group-hover:grayscale-0"
                     />
-                    {/* Overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent opacity-90"></div>
+
+                    {/* Floating Title over Image */}
+                    <div className="absolute bottom-4 left-6">
+                        <h3 className="text-2xl font-bold text-white font-serif tracking-wide group-hover:text-amber-500 transition-colors">
+                            {name}
+                        </h3>
+                    </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 flex-grow flex flex-col">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-gray-900 transition-colors">
-                        {name}
-                    </h3>
-
+                <div className="p-6 flex-grow flex flex-col relative">
                     {/* Capacity Info */}
-                    <div className="flex gap-6 mb-6 pb-6 border-b border-gray-100">
-                        <div className="flex items-center text-gray-600">
-                            <div className="bg-gray-100 p-2 rounded-lg mr-3">
-                                <Users className="w-5 h-5 text-gray-700" />
+                    <div className="flex gap-4 mb-6 pb-6 border-b border-white/5">
+                        <div className="flex items-center text-neutral-400 group-hover:text-white transition-colors">
+                            <div className="bg-white/5 p-2 rounded-none mr-3 border border-white/5 group-hover:border-amber-500/30">
+                                <Users className="w-4 h-4 text-amber-500" />
                             </div>
                             <div>
-                                <div className="text-xs text-gray-500">Passengers</div>
-                                <div className="font-bold text-gray-900">{passengers}</div>
+                                <div className="text-[10px] uppercase tracking-widest text-neutral-500">Passengers</div>
+                                <div className="font-bold">{passengers}</div>
                             </div>
                         </div>
-                        <div className="flex items-center text-gray-600">
-                            <div className="bg-gray-100 p-2 rounded-lg mr-3">
-                                <Briefcase className="w-5 h-5 text-gray-700" />
+                        <div className="flex items-center text-neutral-400 group-hover:text-white transition-colors">
+                            <div className="bg-white/5 p-2 rounded-none mr-3 border border-white/5 group-hover:border-amber-500/30">
+                                <Briefcase className="w-4 h-4 text-amber-500" />
                             </div>
                             <div>
-                                <div className="text-xs text-gray-500">Luggage</div>
-                                <div className="font-bold text-gray-900">{luggage}</div>
+                                <div className="text-[10px] uppercase tracking-widest text-neutral-500">Luggage</div>
+                                <div className="font-bold">{luggage}</div>
                             </div>
                         </div>
                     </div>
 
                     {/* Features */}
-                    <ul className="space-y-2.5 mb-6 flex-grow">
+                    <ul className="space-y-3 mb-8 flex-grow">
                         {features.map((feature, index) => (
-                            <li key={index} className="text-gray-600 text-sm flex items-center">
-                                <CheckCircle2 className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" />
+                            <li key={index} className="text-neutral-400 text-sm flex items-center group-hover:text-neutral-300 transition-colors">
+                                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full mr-3 opacity-50 group-hover:opacity-100 transition-opacity"></span>
                                 {feature}
                             </li>
                         ))}
                     </ul>
 
                     {/* CTA Button */}
-                    <Button className="w-full bg-primary hover:bg-primary/90 text-black font-bold group-hover:shadow-lg transition-all">
-                        Book This Vehicle <ArrowRight className="w-4 h-4 ml-2" />
+                    <Button className="w-full bg-transparent hover:bg-amber-600 text-white border border-white/20 hover:border-amber-600 font-serif tracking-widest text-xs uppercase h-12 rounded-none transition-all group-hover:shadow-[0_0_20px_rgba(217,119,6,0.2)]">
+                        View Details
                     </Button>
                 </div>
             </div>

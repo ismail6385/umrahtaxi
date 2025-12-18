@@ -11,9 +11,9 @@ import {
 } from '@/components/ui/accordion';
 
 export const metadata: Metadata = {
-    title: 'Hyundai Starex - Family Van | Taxi Service KSA',
-    description: 'Book our reliable Hyundai Starex for family travel in Saudi Arabia. 7 passengers, comfortable and spacious, perfect for airport transfers.',
-    keywords: ['Hyundai Starex rental Saudi Arabia', 'family van KSA', 'airport transfer', '7 seater van'],
+    title: 'Hyundai Starex - Family Van | Umrah Taxi',
+    description: 'Book our reliable Hyundai Starex for family Umrah trips. 7 passengers, comfortable and spacious, perfect for airport transfers.',
+    keywords: ['Hyundai Starex rental Makkah', 'family van Umrah', 'airport transfer Jeddah', '7 seater van'],
 };
 
 export default function HyundaiStarexPage() {

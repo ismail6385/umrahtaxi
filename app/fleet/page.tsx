@@ -2,9 +2,9 @@ import FleetCard from '@/components/FleetCard';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Our Fleet - Premium Luxury Vehicles | Taxi Service KSA',
-    description: 'Explore our diverse fleet of luxury vehicles including GMC Yukon, Toyota Camry, Hyundai Staria, Toyota Hiace, and Toyota Coaster. Perfect for airport transfers, Umrah travel, and group transportation across Saudi Arabia.',
-    keywords: ['luxury vehicles KSA', 'GMC Yukon rental', 'Toyota Hiace Saudi Arabia', 'premium fleet', 'VIP transport vehicles'],
+    title: 'Our Fleet | Umrah Taxi - Luxury Vehicles for Pilgrims',
+    description: 'Explore our premium fleet of vehicles for Umrah and Hajj transport. From luxury GMC Yukons to spacious Toyota Hiace vans.',
+    keywords: ['umrah taxi fleet', 'GMC Yukon Makkah', 'family van madinah', 'luxury transport saudi'],
 };
 
 export default function FleetPage() {
@@ -60,19 +60,31 @@ export default function FleetPage() {
     ];
 
     return (
-        <div className="bg-gray-50 min-h-screen pt-24 pb-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <span className="bg-primary text-black font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block">Our Fleet</span>
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mt-4 mb-6">Premium Luxury Vehicles</h1>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Experience the journey in style with our diverse collection of luxury vehicles, meticulously maintained for your comfort and safety across Saudi Arabia.
+        <div className="bg-neutral-950 min-h-screen pt-32 pb-20 relative overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 bg-[url('/pattern-grid.png')] opacity-[0.03] pointer-events-none"></div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="text-center mb-20 animate-fade-in-up">
+                    <div className="inline-flex items-center gap-3 px-4 py-1.5 border border-amber-500/30 bg-white/5 backdrop-blur-md rounded-full mb-6">
+                        <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span>
+                        <span className="text-amber-500 text-xs font-bold tracking-[0.2em] uppercase">Premium Transport</span>
+                    </div>
+
+                    <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 font-serif tracking-tight">
+                        Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-500 to-amber-700">Royal Fleet</span>
+                    </h1>
+
+                    <p className="text-xl text-neutral-400 max-w-2xl mx-auto font-light leading-relaxed">
+                        Experience the sacred journey in absolute comfort. Our meticulously maintained collection of luxury vehicles ensures a safe and dignified travel experience across Saudi Arabia.
                     </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {fleet.map((vehicle, index) => (
-                        <FleetCard key={index} {...vehicle} />
+                        <div key={index} className="animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
+                            <FleetCard {...vehicle} />
+                        </div>
                     ))}
                 </div>
             </div>

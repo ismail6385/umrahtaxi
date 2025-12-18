@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { MapPin, Phone, Clock, Star, CheckCircle2, Car, Users, Shield } from 'lucide-react';
@@ -11,9 +12,9 @@ import {
 } from '@/components/ui/accordion';
 
 export const metadata: Metadata = {
-    title: 'Taxi Service in Madinah | Prophet\'s Mosque Transport & Ziyarat Tours',
-    description: 'Professional taxi service in Madinah helping pilgrims with Prophet\'s Mosque transportation, Ziyarat tours, airport transfers, and hotel to Masjid Nabawi rides.',
-    keywords: ['Madinah taxi', 'Prophet\'s Mosque taxi', 'Ziyarat taxi Madinah', 'Madinah airport transfer'],
+    title: 'Madinah Umrah Taxi | Prophet\'s Mosque & Ziyarat',
+    description: 'Reliable Umrah Taxi in Madinah. We specialize in transport to Prophet\'s Mosque, Ziyarat tours, airport transfers, and Makkah connections.',
+    keywords: ['Madinah taxi', 'Prophet\'s Mosque taxi', 'Ziyarat taxi Madinah', 'Madinah airport transfer', 'Umrah taxi'],
 };
 
 export default function MadinahPage() {
@@ -21,8 +22,8 @@ export default function MadinahPage() {
         { name: 'Airport Transfers', description: 'Prince Mohammad Airport to hotels' },
         { name: 'Ziyarat Tours', description: 'Holy sites and historical places' },
         { name: 'Makkah Transport', description: 'Madinah to Makkah and return' },
-        { name: 'Local Taxi Service', description: 'Within Madinah city' },
-        { name: 'Mosque Transfers', description: 'Hotel to Masjid Nabawi' },
+        { name: 'Hotel Transfers', description: 'Hotel to Masjid Nabawi' },
+        { name: 'Train Station', description: 'Haramain Station Transfers' },
         { name: 'Group Transport', description: 'For families and groups' },
     ];
 
@@ -68,36 +69,60 @@ export default function MadinahPage() {
         <div className="bg-gray-50 min-h-screen">
             <Hero
                 images={madinahImages}
-                h1Text="Madinah Taxi Service | Ziyarat Tours & Prophet's Mosque Visits"
+                h1Text="Madinah Umrah Taxi & Ziyarat Tours"
                 title={
-                    <span className="bg-primary text-black px-4 py-2 rounded-lg inline-block decoration-clone leading-snug">
-                        Madinah Taxi Service
+                    <span className="bg-primary text-white px-4 py-2 rounded-lg inline-block decoration-clone leading-snug">
+                        Madinah Umrah Taxi
                     </span>
                 }
                 subtitle="Ziyarat Tours"
                 location="Prophet's Mosque"
             />
 
-            <section className="py-20 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-12">
-                        <span className="bg-gray-100 text-black font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block">Our Services</span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-4">
-                            Taxi Services in Madinah
-                        </h2>
-                        <p className="text-gray-600 max-w-2xl mx-auto">
-                            Complete transportation solutions in the blessed city of Madinah
-                        </p>
-                    </div>
+            <section className="py-20 px-4 sm:px-6 lg:px-8 relative bg-gray-50/50">
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 rounded-l-full blur-3xl opacity-50 pointer-events-none"></div>
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div className="order-2 lg:order-1">
+                            <span className="bg-primary/10 text-primary font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block mb-4">Madinah Services</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                                Peace in the <br /><span className="text-primary">City of the Prophet</span>
+                            </h2>
+                            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                                Our Madinah transport services are designed with the tranquility of the city in mind. From Airport pickups to Ziyarat of historic mosques, we ensure a respectful and comfortable experience.
+                            </p>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {services.map((service, index) => (
-                            <div key={index} className="bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary/50 hover:shadow-lg transition-all">
-                                <Car className="w-8 h-8 text-gray-700 mb-4" />
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">{service.name}</h3>
-                                <p className="text-gray-600 text-sm">{service.description}</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {services.map((service, index) => (
+                                    <div key={index} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:border-primary/40 hover:shadow-md transition-all">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                                <Car className="w-4 h-4" />
+                                            </div>
+                                            <h3 className="font-bold text-gray-900 text-sm">{service.name}</h3>
+                                        </div>
+                                        <p className="text-xs text-gray-500 pl-11">{service.description}</p>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
+
+                        <div className="order-1 lg:order-2 relative group">
+                            <div className="relative h-[600px] w-full rounded-t-full rounded-b-2xl overflow-hidden shadow-2xl border-4 border-white">
+                                <img
+                                    src="/green-dome-detail.webp"
+                                    alt="The Green Dome of Prophet's Mosque"
+                                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                                <div className="absolute bottom-10 left-0 right-0 text-center text-white">
+                                    <h3 className="text-2xl font-bold font-serif mb-1">Al-Masjid an-Nabawi</h3>
+                                    <p className="text-sm opacity-90 tracking-widest uppercase">The City of Light</p>
+                                </div>
+                            </div>
+                            {/* Decorative Outline */}
+                            <div className="absolute -inset-4 border border-dashed border-primary/30 rounded-t-full rounded-b-3xl z-[-1] animate-spin-slow" style={{ animationDuration: '60s' }}></div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -106,9 +131,9 @@ export default function MadinahPage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <span className="bg-gray-100 text-black font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block mb-4">Why Choose Us</span>
+                            <span className="bg-primary/10 text-primary font-semibold tracking-wider uppercase text-sm px-4 py-1.5 rounded-full inline-block mb-4">Why Choose Us</span>
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                                Trusted Taxi Service in Madinah
+                                Trusted Umrah Taxi in Madinah
                             </h2>
                             <p className="text-gray-600 mb-8">
                                 Experience the blessed city with our professional drivers who understand the significance of your spiritual journey to Masjid Nabawi and historical sites.
@@ -142,6 +167,50 @@ export default function MadinahPage() {
                                 <Shield className="w-8 h-8 text-gray-700 mx-auto mb-3" />
                                 <div className="text-3xl font-bold text-gray-900 mb-1">100%</div>
                                 <div className="text-sm text-gray-600">Safe</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Sacred Landmarks */}
+            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-neutral-900 text-white relative">
+                <div className="absolute inset-0 bg-[url('/pattern-grid.png')] opacity-[0.05]"></div>
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="text-center mb-16">
+                        <span className="text-amber-500 font-bold tracking-[0.2em] uppercase text-xs">Explore History</span>
+                        <h2 className="text-3xl md:text-5xl font-bold font-serif mt-3 mb-6">Sacred Ziyarat Sites</h2>
+                        <p className="text-neutral-400 max-w-2xl mx-auto">
+                            Our drivers are knowledgeable guides who will take you to these blessed locations with the respect they deserve.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="group relative h-80 rounded-2xl overflow-hidden cursor-pointer border border-white/10">
+                            <Image
+                                src="/zip-quba.webp"
+                                alt="Masjid Quba"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-8">
+                                <h3 className="text-2xl font-bold font-serif mb-2 text-white group-hover:text-amber-500 transition-colors">Masjid Quba</h3>
+                                <p className="text-sm text-neutral-300">The first mosque built by the Prophet (PBUH).</p>
+                            </div>
+                        </div>
+
+                        <div className="group relative h-80 rounded-2xl overflow-hidden cursor-pointer border border-white/10">
+                            <Image
+                                src="/zip-uhud.webp"
+                                alt="Mount Uhud"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-8">
+                                <h3 className="text-2xl font-bold font-serif mb-2 text-white group-hover:text-amber-500 transition-colors">Mount Uhud</h3>
+                                <p className="text-sm text-neutral-300">"Uhud is a mountain that loves us and we love it."</p>
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Star, Shield, CheckCircle, Sparkles, MapPin, Clock, Award, Phone } from 'lucide-react';
+import { ArrowRight, Star } from 'lucide-react';
 import BookingForm from './BookingForm';
 import { useState, useEffect } from 'react';
 
@@ -12,87 +12,25 @@ interface HeroProps {
     title?: React.ReactNode;
     subtitle?: string;
     location?: string;
-    h1Text?: string; // Custom H1 text for SEO
+    h1Text?: string;
 }
 
 export default function Hero(props: HeroProps) {
-    const { images, title, subtitle, location, h1Text } = props;
+    const { images } = props;
     const [currentSlide, setCurrentSlide] = useState(0);
 
-    // Use custom images if provided, otherwise use default homepage slides
     const slides = images || [
-        '/hero-slide-1.webp', // Kaaba Makkah
-        '/hero-slide-2.webp', // Madinah Mosque
-        '/hero-slide-3.webp', // Luxury Car
-        '/hero-slide-4.webp', // Jeddah
-        '/hero-slide-5.webp', // Riyadh
+        '/makkah-clock-tower.webp',
+        '/madinah-prophets-mosque.webp',
+        '/gmc-yukon.webp',
     ];
 
-    // Alt text for each slide (SEO optimized with keywords)
-    const slideAltTexts = images 
-        ? images.map((img, idx) => {
-            // Extract meaningful alt text from image path with SEO keywords
-            const imgLower = img.toLowerCase();
-            if (imgLower.includes('makkah') || imgLower.includes('kaaba')) {
-                return 'Makkah Kaaba at night - Premium Umrah taxi service from Jeddah Airport to Makkah, Saudi Arabia';
-            }
-            if (imgLower.includes('madinah') || imgLower.includes('mosque') || imgLower.includes('prophet')) {
-                return 'Prophet\'s Mosque in Madinah - Professional Ziyarat tour service and Umrah taxi from Makkah to Madinah';
-            }
-            if (imgLower.includes('jeddah') || imgLower.includes('corniche') || imgLower.includes('airport')) {
-                return 'Jeddah Corniche sunset view - Airport transfer service from King Abdulaziz International Airport to Makkah and Madinah';
-            }
-            if (imgLower.includes('taif') || imgLower.includes('mountain') || imgLower.includes('rose')) {
-                return 'Taif mountains and rose gardens - Luxury intercity taxi service from Jeddah to Taif, Saudi Arabia';
-            }
-            if (imgLower.includes('alula') || imgLower.includes('hegra') || imgLower.includes('tomb')) {
-                return 'AlUla Hegra tombs UNESCO World Heritage Site - Heritage tour and luxury transportation service in Saudi Arabia';
-            }
-            return `Premium chauffeur and taxi service in Saudi Arabia - Professional airport transfer and luxury transportation`;
-        })
-        : [
-            'Makkah Kaaba at night - Premium Umrah taxi service from Jeddah Airport to Makkah, Saudi Arabia',
-            'Prophet\'s Mosque in Madinah - Professional Ziyarat tour service and Umrah taxi from Makkah to Madinah',
-            'Luxury GMC Yukon chauffeur vehicle - VIP transportation and premium taxi service in Saudi Arabia',
-            'Jeddah city view - Airport transfer service from King Abdulaziz International Airport to Makkah and Madinah',
-            'Riyadh cityscape - Premium intercity taxi and chauffeur service from Jeddah to Riyadh, Saudi Arabia'
-        ];
-
-    // Default text content for homepage slides
-    const defaultSlideContent = [
-        {
-            highlight: <span className="bg-primary text-black px-4 py-2 rounded-lg inline-block decoration-clone leading-snug">Umrah Taxi Service!</span>,
-            subtitle: "Comfortable & Reliable",
-            location: "Makkah to Madinah"
-        },
-        {
-            highlight: <span className="bg-primary text-black px-4 py-2 rounded-lg inline-block decoration-clone leading-snug">Ziyarat Tours!</span>,
-            subtitle: "Sacred Sites Visit",
-            location: "Madinah Holy Places"
-        },
-        {
-            highlight: <span className="bg-primary text-black px-4 py-2 rounded-lg inline-block decoration-clone leading-snug">VIP Chauffeur!</span>,
-            subtitle: "Luxury Experience",
-            location: "Premium Fleet"
-        },
-        {
-            highlight: <span className="bg-primary text-black px-4 py-2 rounded-lg inline-block decoration-clone leading-snug">Airport Transfer!</span>,
-            subtitle: "Jeddah Airport",
-            location: "To Makkah & Madinah"
-        },
-        {
-            highlight: <span className="bg-primary text-black px-4 py-2 rounded-lg inline-block decoration-clone leading-snug">City Tours!</span>,
-            subtitle: "Explore Saudi Arabia",
-            location: "Riyadh & Beyond"
-        }
+    const slideAltTexts = [
+        "Makkah Royal Clock Tower",
+        "Prophet's Mosque Madinah",
+        "Luxury GMC Yukon Fleet"
     ];
 
-    // Text content for each slide (either from props or default)
-    const slideContent = title && subtitle && location
-        ? [{ highlight: title, subtitle: subtitle, location: location }]
-        : defaultSlideContent;
-
-    // Auto-slide every 5 seconds
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -100,74 +38,93 @@ export default function Hero(props: HeroProps) {
         return () => clearInterval(timer);
     }, [slides.length]);
 
-    // Get current slide content (use modulo to stay within bounds)
-    const currentContent = slideContent[currentSlide % slideContent.length];
-
     return (
-        <section className="relative bg-white text-gray-900 overflow-hidden min-h-screen flex items-center" aria-label="Hero section">
-            {/* Background Image Carousel - SEO Optimized with proper img tags */}
+        <section className="relative h-[90vh] sm:h-screen min-h-[600px] w-full overflow-hidden flex items-center bg-black">
+            {/* Fullscreen Background Slider */}
             <div className="absolute inset-0 z-0">
                 {slides.map((slide, index) => (
                     <div
                         key={index}
-                        className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'
-                            }`}
+                        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
                     >
                         <Image
                             src={slide}
-                            alt={slideAltTexts[index] || `Premium taxi service in Saudi Arabia - ${index + 1}`}
+                            alt={slideAltTexts[index] || "Luxury Transport"}
                             fill
                             priority={index === 0}
-                            quality={90}
                             className="object-cover"
-                            sizes="100vw"
-                            aria-hidden={index !== currentSlide}
+                            quality={85}
                         />
+                        {/* Luxury Overlay: Deep Black with Gold Vignette */}
+                        <div className="absolute inset-0 bg-black/60 mix-blend-multiply" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/30" />
                     </div>
                 ))}
-                {/* Subtle dark overlay for text readability */}
-                <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
             </div>
 
+            {/* Content Container */}
+            <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center pt-32">
+                <div className="grid lg:grid-cols-12 gap-8 items-center">
 
-
-
-            {/* Main Content */}
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 w-full">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 xl:gap-16 items-center">
-                    {/* Left Content */}
-                    <div className="lg:col-span-7 space-y-6 sm:space-y-8">
-
-                        {/* Main Heading - SEO Optimized: Static H1 for better SEO */}
-                        <div className="space-y-4 sm:space-y-6 animate-fade-in-up delay-100">
-                            {/* Static H1 for SEO - Main keyword always visible to search engines */}
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight leading-tight sm:leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                                {h1Text || "Premium Taxi Service KSA"}
-                            </h1>
-
-                            {/* Dynamic H2 for visual appeal - Changes with slides */}
-                            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight sm:leading-tight" key={currentSlide}>
-                                <span className="block text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                                    {currentContent.subtitle}
-                                </span>
-                                <span className="block text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] mt-1 sm:mt-2">
-                                    {currentContent.location}
-                                </span>
-                            </h2>
-
-                            {/* Subtitle - SEO optimized description */}
-                            <p className="text-base sm:text-lg md:text-xl text-white leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] max-w-2xl mt-4 sm:mt-6">
-                                Professional chauffeur and airport transfer services across Saudi Arabia.
-                                We help travelers, pilgrims, and business executives with luxury vehicles and 24/7 availability.
-                            </p>
+                    {/* Typography Section - Center on Mobile, Left on Desktop */}
+                    <div className="lg:col-span-7 space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start animate-fade-in-up">
+                        {/* Premium Badge */}
+                        <div className="inline-flex items-center gap-3 px-5 py-2 border border-amber-500/30 bg-black/40 backdrop-blur-md rounded-sm">
+                            <span className="h-[1px] w-8 bg-amber-500"></span>
+                            <span className="text-amber-400 text-xs font-bold tracking-[0.2em] uppercase font-serif">Royal Travel Experience</span>
+                            <span className="h-[1px] w-8 bg-amber-500"></span>
                         </div>
 
+                        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-medium text-white leading-[1.1] tracking-tight">
+                            Journey of <br />
+                            <span className="text-amber-500 drop-shadow-lg">
+                                Faith & Comfort
+                            </span>
+                        </h1>
 
+                        <p className="text-lg md:text-xl text-neutral-300 font-light leading-relaxed max-w-xl">
+                            Premium Umrah taxi services for the guests of Allah. Experience certified luxury with our GMC Yukon fleet in Makkah, Madinah, and Jeddah.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-5 pt-6 w-full sm:w-auto">
+                            <Link href="/booking" className="w-full sm:w-auto">
+                                <Button className="w-full h-14 px-10 bg-amber-600 hover:bg-amber-700 text-white font-serif tracking-widest text-sm uppercase rounded-sm border border-amber-500/50 shadow-[0_0_20px_rgba(217,119,6,0.3)] transition-all hover:scale-105">
+                                    Book Now
+                                </Button>
+                            </Link>
+                            <Link href="/fleet" className="w-full sm:w-auto">
+                                <Button variant="outline" className="w-full h-14 px-10 bg-transparent border-amber-500/50 text-white hover:bg-amber-500 hover:text-black font-serif tracking-widest text-sm uppercase rounded-sm backdrop-blur-sm transition-all shadow-[0_0_15px_rgba(217,119,6,0.1)] hover:shadow-[0_0_20px_rgba(217,119,6,0.4)]">
+                                    View Fleet
+                                </Button>
+                            </Link>
+                        </div>
+
+                        {/* Trust Badges */}
+                        <div className="pt-8 flex flex-wrap justify-center lg:justify-start gap-8 text-white/60 text-sm font-light">
+                            <div className="flex items-center gap-2">
+                                <Star className="w-4 h-4 text-amber-500" /> 5-Star Service
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span> 2024 Models
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span> 24/7 Support
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Right Side - Booking Form */}
-                    <div className="lg:col-span-5 w-full animate-fade-in-left delay-300">
-                        <BookingForm />
+                    {/* Booking Form Widget - Floating Right */}
+                    <div className="hidden lg:block lg:col-span-5 relative animate-fade-in-up delay-200">
+                        <div className="bg-black/40 backdrop-blur-xl p-1 rounded-sm border border-amber-500/30">
+                            <div className="bg-black/90 p-8 border border-white/5">
+                                <div className="text-center mb-8 pb-4 border-b border-white/10">
+                                    <h3 className="text-xl font-serif text-white tracking-wide">Plan Your Trip</h3>
+                                    <p className="text-amber-500/80 text-xs uppercase tracking-widest mt-1">Instant Confirmation</p>
+                                </div>
+                                <BookingForm variant="hero" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

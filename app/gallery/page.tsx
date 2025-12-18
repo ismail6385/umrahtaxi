@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { Camera, Car, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'Gallery | Taxi Service KSA - Our Fleet & Services',
-    description: 'View our premium fleet of vehicles and services across Saudi Arabia. Browse photos of our luxury cars, vans, and professional chauffeur services.',
-    keywords: ['taxi gallery', 'fleet photos', 'Saudi Arabia taxi', 'luxury vehicles', 'chauffeur service'],
+    title: 'Gallery | Umrah Taxi - Our Fleet & Holy Sites',
+    description: 'View our premium fleet of vehicles and services for Umrah pilgrims. Browse photos of GMC Yukons, Hiace vans, and our services in Makkah and Madinah.',
+    keywords: ['umrah taxi gallery', 'fleet photos', 'GMC Yukon Makkah', 'Hiace Madinah', 'ziyarat photos'],
 };
 
 export default function GalleryPage() {
@@ -15,53 +15,54 @@ export default function GalleryPage() {
             title: 'Our Premium Fleet',
             description: 'Luxury vehicles for every occasion',
             images: [
-                { src: '/gmc-yukon.webp', alt: 'GMC Yukon - Luxury SUV', category: 'Luxury' },
-                { src: '/toyota-camry.webp', alt: 'Toyota Camry - Comfortable Sedan', category: 'Sedan' },
-                { src: '/hyundai-staria.webp', alt: 'Hyundai Staria - Modern Family Van', category: 'Van' },
-                { src: '/toyota-hiace.webp', alt: 'Toyota Hiace - Group Transport', category: 'Van' },
+                { src: '/gmc-yukon-context.webp', alt: 'GMC Yukon at Makkah Hotel', category: 'Luxury' },
+                { src: '/gmc-yukon.webp', alt: 'GMC Yukon - Studio View', category: 'Luxury' },
+                { src: '/driver-luxury.webp', alt: 'VIP Chauffeur Service', category: 'VIP' },
+                { src: '/toyota-camry-context.webp', alt: 'Toyota Camry in Makkah', category: 'Sedan' },
+                { src: '/hyundai-staria-context.webp', alt: 'Hyundai Staria in Jeddah', category: 'Van' },
+                { src: '/toyota-hiace-context.webp', alt: 'Toyota Hiace at Airport', category: 'Van' },
                 { src: '/toyota-coaster.webp', alt: 'Toyota Coaster - Tour Bus', category: 'Bus' },
-                { src: '/hyundai-starex.webp', alt: 'Hyundai Starex - Family Van', category: 'Van' },
             ]
         },
         {
             title: 'Makkah Services',
             description: 'Professional transport in the Holy City',
             images: [
+                { src: '/makkah-clock-tower-new.webp', alt: 'Makkah Royal Clock Tower', category: 'Landmark' },
                 { src: '/makkah-kaaba-night.webp', alt: 'Kaaba at Night', category: 'Makkah' },
-                { src: '/makkah-grand-mosque.webp', alt: 'Grand Mosque Aerial View', category: 'Makkah' },
-                { src: '/makkah-clock-tower.webp', alt: 'Clock Tower at Dusk', category: 'Makkah' },
+                { src: '/zip-hira.webp', alt: 'Cave of Hira & Jabal Al-Nour', category: 'Ziyarat' },
+                { src: '/zip-mina.webp', alt: 'Mina Tent City Panoramic', category: 'Ziyarat' },
+                { src: '/makkah-highway.webp', alt: 'Scenic Route to Makkah', category: 'Travel' },
             ]
         },
         {
             title: 'Madinah Services',
             description: 'Serving pilgrims in the City of the Prophet',
             images: [
+                { src: '/madinah-umbrellas.webp', alt: 'Masjid Nabawi Umbrellas', category: 'Landmark' },
+                { src: '/zip-quba.webp', alt: 'Quba Mosque - First Masjid', category: 'Ziyarat' },
+                { src: '/zip-uhud.webp', alt: 'Mount Uhud Landscape', category: 'Ziyarat' },
+                { src: '/green-dome-detail.webp', alt: 'Green Dome Detail', category: 'Madinah' },
                 { src: '/madinah-prophets-mosque.webp', alt: 'Prophet\'s Mosque at Sunset', category: 'Madinah' },
-                { src: '/madinah-night-view.webp', alt: 'Madinah Night View', category: 'Madinah' },
             ]
         },
         {
             title: 'Jeddah & Coastal Cities',
             description: 'Airport transfers and city tours',
             images: [
+                { src: '/jeddah-corniche-road.webp', alt: 'Luxury Drive on Corniche', category: 'Jeddah' },
+                { src: '/jeddah-service.webp', alt: 'VIP Airport Pickup', category: 'Service' },
                 { src: '/jeddah-corniche-sunset.webp', alt: 'Jeddah Corniche Sunset', category: 'Jeddah' },
                 { src: '/jeddah-airport-terminal.webp', alt: 'Jeddah Airport Terminal', category: 'Jeddah' },
-                { src: '/jeddah-city-night.webp', alt: 'Jeddah City Night', category: 'Jeddah' },
             ]
         },
         {
-            title: 'Taif & Mountain Tours',
-            description: 'Scenic routes and rose gardens',
+            title: 'Taif & Heritage',
+            description: 'Scenic routes and historical locations',
             images: [
                 { src: '/taif-mountains-view.webp', alt: 'Taif Mountains View', category: 'Taif' },
                 { src: '/taif-rose-gardens.webp', alt: 'Taif Rose Gardens', category: 'Taif' },
-            ]
-        },
-        {
-            title: 'Heritage Sites',
-            description: 'Tours to UNESCO World Heritage Sites',
-            images: [
-                { src: '/alula-hegra-tombs.webp', alt: 'AlUla Hegra Tombs', category: 'AlUla' },
+                { src: '/alula-hegra-tombs.webp', alt: 'AlUla Hegra Tombs', category: 'Heritage' },
             ]
         }
     ];

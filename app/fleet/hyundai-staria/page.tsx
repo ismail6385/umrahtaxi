@@ -11,9 +11,9 @@ import {
 } from '@/components/ui/accordion';
 
 export const metadata: Metadata = {
-    title: 'Hyundai Staria - Modern Family Van | Taxi Service KSA',
-    description: 'Book our spacious Hyundai Staria for family travel in Saudi Arabia. Modern design, 7 passengers, perfect for Umrah and family trips.',
-    keywords: ['Hyundai Staria rental Saudi Arabia', 'family van KSA', 'Umrah transport', '7 seater'],
+    title: 'Hyundai Staria - Modern Family Van | Umrah Taxi',
+    description: 'Book our spacious Hyundai Staria for Umrah family travel. Modern design, 7 passengers, perfect for Makkah-Madinah transport.',
+    keywords: ['Hyundai Staria rental Makkah', 'family van Umrah', 'Umrah transport Saudi', '7 seater taxi'],
 };
 
 export default function HyundaiStariaPage() {
@@ -108,7 +108,7 @@ export default function HyundaiStariaPage() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
-                    <div className="bg-white p-8 rounded-2xl shadow-sm">
+                    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                         <h2 className="text-2xl font-bold text-gray-900 mb-6">Features</h2>
                         <ul className="space-y-3">
                             {features.map((feature, index) => (
@@ -120,16 +120,32 @@ export default function HyundaiStariaPage() {
                         </ul>
                     </div>
 
-                    <div className="bg-white p-8 rounded-2xl shadow-sm">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-6">Ideal For</h2>
-                        <ul className="space-y-3">
-                            {idealFor.map((use, index) => (
-                                <li key={index} className="flex items-center text-gray-700">
-                                    <Car className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
-                                    {use}
-                                </li>
-                            ))}
-                        </ul>
+                    <div className="relative h-full min-h-[400px] rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
+                        <Image
+                            src="/hyundai-staria-context.webp"
+                            alt="Hyundai Staria Driving in Jeddah"
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+                        <div className="absolute bottom-0 left-0 p-8 w-full text-white">
+                            <div className="mb-4">
+                                <span className="bg-white text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Business & Family</span>
+                            </div>
+                            <h2 className="text-2xl font-bold mb-2">Modern Travel Redefined</h2>
+                            <p className="text-gray-300 text-sm mb-6 max-w-md">
+                                Experience the future of transport. The Staria offers a unique panoramic view of the Kingdom's modern developments.
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                {idealFor.slice(0, 4).map((use, index) => (
+                                    <span key={index} className="flex items-center text-xs bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                                        <Car className="w-3 h-3 mr-2" />
+                                        {use}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
 

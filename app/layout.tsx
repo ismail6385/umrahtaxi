@@ -15,50 +15,40 @@ import JsonLdService from '@/components/JsonLdService';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://taxiserviceksa.com'),
-  title: 'Taxi Service KSA | #1 Premium Chauffeur & Airport Transfer in Saudi Arabia',
-  description: 'Book premium chauffeur services in Saudi Arabia. Professional airport transfers in Jeddah, Madinah, Riyadh. Umrah taxi, luxury intercity travel, 24/7 service. Trusted by 10,000+ customers. Instant booking available.',
+  metadataBase: new URL('https://umrahtaxi.site'),
+  title: 'Umrah Taxi | #1 Trusted Umrah & Hajj Taxi Service in KSA',
+  description: 'Book reliable Umrah Taxi services for Makkah, Madinah, and Jeddah. Airport transfers, Ziyarat tours, and intercity travel with premium vehicles. 24/7 Service.',
   icons: {
     icon: '/favicon.svg',
     apple: '/logo.svg',
   },
   keywords: [
     // Primary Keywords
-    'Taxi Service KSA', 'Saudi Arabia Taxi', 'Chauffeur Service Saudi Arabia', 'Premium Taxi KSA',
+    'Umrah Taxi Service', 'Hajj Taxi Service', 'Makkah Taxi', 'Madinah Taxi',
+
+    // Umrah & Religious Travel
+    'Makkah to Madinah Taxi', 'Madinah to Makkah Transfer', 'Ziyarat Taxi Service',
+    'Jeddah Airport to Makkah Taxi', 'Haramain Taxi',
 
     // Airport Transfer Keywords
     'Jeddah Airport Transfer', 'King Abdulaziz Airport Taxi', 'Madinah Airport Taxi',
-    'Prince Mohammad Airport Transfer', 'Riyadh Airport Transfer', 'King Khalid Airport Taxi',
-    'Airport Pickup Saudi Arabia', 'Airport Drop Off KSA',
-
-    // Umrah & Religious Travel
-    'Umrah Taxi Service', 'Makkah to Madinah Taxi', 'Madinah to Makkah Transfer',
-    'Ziyarat Taxi Service', 'Hajj Transportation', 'Holy Sites Transport',
+    'Airport Pickup Makkah', 'Airport Drop Off Madinah',
 
     // City-Specific Keywords
-    'Jeddah Taxi Service', 'Makkah Chauffeur', 'Madinah Taxi', 'Riyadh Chauffeur Service',
-    'Dammam Taxi', 'Taif Transport Service', 'Al Khobar Taxi',
-
-    // Intercity Keywords
-    'Jeddah to Makkah Taxi', 'Riyadh to Dammam Transfer', 'Intercity Taxi KSA',
-    'Long Distance Taxi Saudi Arabia', 'City to City Transfer KSA',
+    'Jeddah Taxi Service', 'Makkah Chauffeur', 'Madinah Taxi',
+    'Taif Ziyarat', 'Badar Ziyarat',
 
     // Service Type Keywords
-    'Luxury Car Rental KSA', 'VIP Transport KSA', 'Executive Chauffeur Saudi Arabia',
-    'Corporate Transportation KSA', 'Private Driver Saudi Arabia', 'Hourly Chauffeur Service',
-
-    // Vehicle Keywords
-    'GMC Yukon Rental KSA', 'Toyota Camry Taxi', 'Hyundai Staria Rental',
-    'Luxury SUV Rental Saudi Arabia', 'Family Car Rental KSA',
+    'Luxury Umrah Taxi', 'VIP Umrah Transport', 'Private Driver Makkah',
+    'GMC Yukon Makkah', 'Hiace For Umrah Group',
 
     // Long-tail Keywords
-    'Best Taxi Service in Saudi Arabia', 'Reliable Airport Transfer Jeddah',
-    'Professional Chauffeur Riyadh', 'Affordable Umrah Taxi', '24/7 Taxi Service KSA',
-    'English Speaking Driver Saudi Arabia', 'Safe Taxi Service for Families'
+    'Best Umrah Taxi Service', 'Cheap Taxi Makkah to Madinah',
+    'Reliable Jeddah Airport Taxi', 'Taxi for Ziyarat', 'Umrah Transportation'
   ],
-  authors: [{ name: 'Taxi Service KSA' }],
-  creator: 'Taxi Service KSA',
-  publisher: 'Taxi Service KSA',
+  authors: [{ name: 'Umrah Taxi' }],
+  creator: 'Umrah Taxi',
+  publisher: 'Umrah Taxi',
   robots: {
     index: true,
     follow: true,
@@ -71,33 +61,33 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Taxi Service KSA | #1 Premium Chauffeur & Airport Transfer in Saudi Arabia',
-    description: 'Experience luxury and reliability with our top-tier chauffeur services in Saudi Arabia. Professional drivers, premium vehicles, 24/7 availability. Book your ride today and travel in comfort.',
-    url: 'https://taxiserviceksa.com',
-    siteName: 'Taxi Service KSA',
+    title: 'Umrah Taxi | #1 Trusted Pilgrim Transport Service',
+    description: 'Experience comfortable and reliable Umrah taxi services. Makkah, Madinah, Jeddah Airport transfers. Book your ride today.',
+    url: 'https://umrahtaxi.site',
+    siteName: 'Umrah Taxi',
     locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: 'https://taxiserviceksa.com/og-image.jpg',
+        url: 'https://umrahtaxi.site/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Taxi Service KSA - Premium Chauffeur Services in Saudi Arabia',
+        alt: 'Umrah Taxi - Premium Transport for Pilgrims',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Taxi Service KSA | Premium Chauffeur & Airport Transfer',
-    description: 'Reliable airport transfers and luxury chauffeur services across Saudi Arabia. Professional drivers, premium fleet, 24/7 service. Book now!',
-    images: ['https://taxiserviceksa.com/twitter-image.jpg'],
-    creator: '@taxiserviceksa',
+    title: 'Umrah Taxi | Premium Umrah & Hajj Transport',
+    description: 'Reliable airport transfers and Umrah taxi services. Makkah, Madinah, Jeddah. Book now!',
+    images: ['https://umrahtaxi.site/twitter-image.jpg'],
+    creator: '@umrahtaxi',
   },
   alternates: {
     canonical: './',
   },
   verification: {
-    google: 'Belm0suIdEZOrTDlLuFKDh04Zjd66lvr6K5LAkPcwIo',
+    // google: 'TODO: Add new verification code',
   },
   category: 'Transportation Services',
   viewport: {
@@ -106,8 +96,8 @@ export const metadata: Metadata = {
     maximumScale: 5,
   },
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#EAB308' },
-    { media: '(prefers-color-scheme: dark)', color: '#000000' },
+    { media: '(prefers-color-scheme: light)', color: '#047857' }, // Emerald Green
+    { media: '(prefers-color-scheme: dark)', color: '#047857' },
   ],
   manifest: '/manifest.json',
 };

@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://taxiserviceksa.com'
+    const baseUrl = 'https://umrahtaxi.site'
 
     // Core static pages
     const routes = [

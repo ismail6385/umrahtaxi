@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { MapPin, Phone, Clock, Star, CheckCircle2, Car, Users, Shield, Landmark } from 'lucide-react';
 import Hero from '@/components/Hero';
@@ -98,6 +99,97 @@ export default function KhayberPage() {
                                 <p className="text-gray-600 text-sm">{service.description}</p>
                             </div>
                         ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Echoes of History Gallery */}
+            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-neutral-900 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/pattern-grid.png')] opacity-[0.05]"></div>
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="text-center mb-16">
+                        <span className="text-amber-500 font-bold tracking-[0.2em] uppercase text-xs">Islamic Heritage</span>
+                        <h2 className="text-3xl md:text-5xl font-bold text-white font-serif mt-3 mb-6">Explore the Forts of Khaybar</h2>
+                        <p className="text-neutral-400 max-w-2xl mx-auto">
+                            Walk through the ancient oasis where history was made. A journey back in time to the era of the Prophet (PBUH).
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
+                        {/* Main Feature - Fort Main View */}
+                        <div className="md:col-span-8 md:row-span-2 relative group rounded-2xl overflow-hidden border border-white/10 h-80 md:h-full">
+                            <Image
+                                src="/khaybar-fort-main.webp"
+                                alt="Khaybar Fort Main Fortress"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-8">
+                                <h3 className="text-2xl font-bold text-white font-serif mb-2">Qamus Fort</h3>
+                                <p className="text-amber-500 text-sm uppercase tracking-widest">The Main Citadel</p>
+                            </div>
+                        </div>
+
+                        {/* Top Right - Oasis View */}
+                        <div className="md:col-span-4 relative group rounded-2xl overflow-hidden border border-white/10 h-64 md:h-auto">
+                            <Image
+                                src="/khaybar-oasis.webp"
+                                alt="Khaybar Oasis Palm Trees"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">Ancient Oasis</h3>
+                                <p className="text-amber-500 text-xs uppercase tracking-widest">Lush Palms</p>
+                            </div>
+                        </div>
+
+                        {/* Middle Right - Ruins */}
+                        <div className="md:col-span-4 relative group rounded-2xl overflow-hidden border border-white/10 h-64 md:h-auto">
+                            <Image
+                                src="/khaybar-ruins.webp"
+                                alt="Old Khaybar Ruins"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">Historic Ruins</h3>
+                                <p className="text-amber-500 text-xs uppercase tracking-widest">Volcanic Stone</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Bottom Row */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div className="relative group rounded-2xl overflow-hidden border border-white/10 h-64">
+                            <Image
+                                src="/khaybar-dam.webp"
+                                alt="Ancient Khaybar Dam"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">Hybrids of History</h3>
+                                <p className="text-amber-500 text-xs uppercase tracking-widest">Ancient Engineering</p>
+                            </div>
+                        </div>
+                        <div className="relative group rounded-2xl overflow-hidden border border-white/10 h-64">
+                            <Image
+                                src="/khaybar-entrance.webp"
+                                alt="Entrance to Khaybar"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 p-6">
+                                <h3 className="text-xl font-bold text-white font-serif mb-1">Volcanic Fields</h3>
+                                <p className="text-amber-500 text-xs uppercase tracking-widest">Harrat Khaybar</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

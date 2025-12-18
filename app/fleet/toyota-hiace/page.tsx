@@ -12,9 +12,9 @@ import {
 import JsonLdFAQ from '@/components/JsonLdFAQ';
 
 export const metadata: Metadata = {
-    title: 'Toyota Hiace - Group Transport | Taxi Service KSA',
-    description: 'Book our spacious Toyota Hiace for group travel in Saudi Arabia. 11 passengers, perfect for Umrah groups and large families.',
-    keywords: ['Toyota Hiace rental Saudi Arabia', 'group transport KSA', 'Umrah van', '11 seater'],
+    title: 'Toyota Hiace - Group Transport | Umrah Taxi',
+    description: 'Book our spacious Toyota Hiace for group Umrah travel. 11 passengers, perfect for Ziyarat tours and large families.',
+    keywords: ['Toyota Hiace rental Makkah', 'group transport Umrah', 'Umrah van Saudi Arabia', '11 seater taxi'],
 };
 
 export default function ToyotaHiacePage() {
@@ -110,7 +110,7 @@ export default function ToyotaHiacePage() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
-                    <div className="bg-white p-8 rounded-2xl shadow-sm">
+                    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                         <h2 className="text-2xl font-bold text-gray-900 mb-6">Features</h2>
                         <ul className="space-y-3">
                             {features.map((feature, index) => (
@@ -122,16 +122,32 @@ export default function ToyotaHiacePage() {
                         </ul>
                     </div>
 
-                    <div className="bg-white p-8 rounded-2xl shadow-sm">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-6">Ideal For</h2>
-                        <ul className="space-y-3">
-                            {idealFor.map((use, index) => (
-                                <li key={index} className="flex items-center text-gray-700">
-                                    <Car className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
-                                    {use}
-                                </li>
-                            ))}
-                        </ul>
+                    <div className="relative h-full min-h-[400px] rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
+                        <Image
+                            src="/toyota-hiace-context.webp"
+                            alt="Toyota Hiace Loading at Airport"
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+                        <div className="absolute bottom-0 left-0 p-8 w-full text-white">
+                            <div className="mb-4">
+                                <span className="bg-white text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Group Travel</span>
+                            </div>
+                            <h2 className="text-2xl font-bold mb-2">Designed for Families</h2>
+                            <p className="text-gray-300 text-sm mb-6 max-w-md">
+                                From Airport pick-ups with heavy luggage to Ziyarat tours, the Hiace is the workhorse of Umrah travel.
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                {idealFor.slice(0, 4).map((use, index) => (
+                                    <span key={index} className="flex items-center text-xs bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                                        <Car className="w-3 h-3 mr-2" />
+                                        {use}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
