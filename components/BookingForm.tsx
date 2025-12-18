@@ -11,10 +11,26 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Calendar, MapPin, Phone, User, Clock, Car, Mail, ArrowRight, ArrowLeft, Check, Users, Briefcase, Wallet } from 'lucide-react';
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "@/components/ui/command";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { MapPin, Phone, User, Clock, Car, Mail, ArrowRight, ArrowLeft, Check, Users, Briefcase, Wallet, ChevronsUpDown, Search, Calendar as CalendarIcon } from 'lucide-react';
 import { supabase, vehicles, type BookingData } from '@/lib/supabase';
 import { getPrice } from '@/lib/pricing';
 import { countryCodes } from '@/data/countryCodes';
+import { format } from "date-fns";
+import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 
 const POPULAR_ROUTES = [
     { id: 'custom', label: 'Custom Location (Enter below)' },
@@ -37,6 +53,7 @@ export default function BookingForm() {
     const [success, setSuccess] = useState(false);
     const [calculatedPrice, setCalculatedPrice] = useState<number | null>(null);
     const [countryCode, setCountryCode] = useState('+966');
+    const [open, setOpen] = useState(false);
 
     const [formData, setFormData] = useState<BookingData>({
         customer_name: '',
@@ -258,39 +275,66 @@ export default function BookingForm() {
                         <div className="space-y-4">
                             <div className="relative group/input">
                                 <h4 className="text-sm font-medium text-gray-700 mb-1 ml-1">Country</h4>
-                                <div className="absolute left-3 top-9 z-10 text-gray-400">
-                                    <span className="text-lg">{countryCodes.find(c => c.code === countryCode)?.flag}</span>
-                                </div>
-                                <Select
-                                    value={countryCodes.find(c => c.code === countryCode)?.country || 'Saudi Arabia'}
-                                    onValueChange={(value) => {
-                                        const found = countryCodes.find(c => c.country === value);
-                                        if (found) {
-                                            setCountryCode(found.code);
-                                        }
-                                    }}
-                                >
-                                    <SelectTrigger className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:ring-0 rounded-xl w-full text-left">
-                                        <SelectValue placeholder="Select Country" />
-                                    </SelectTrigger>
-                                    <SelectContent className="max-h-[300px]">
-                                        {countryCodes.map((c) => (
-                                            <SelectItem key={c.country} value={c.country}>
-                                                <span className="mr-2">{c.flag}</span>
-                                                {c.country}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
+                                <Popover open={open} onOpenChange={setOpen}>
+                                    <PopoverTrigger asChild>
+                                        <Button
+                                            variant="outline"
+                                            role="combobox"
+                                            aria-expanded={open}
+                                            className="w-full h-12 justify-between bg-gray-50 border-gray-300 text-gray-900 hover:bg-gray-100/50 hover:text-gray-900 rounded-xl font-normal px-3"
+                                        >
+                                            {countryCode ? (
+                                                <span className="flex items-center truncate">
+                                                    <span className="mr-2 text-lg">{countryCodes.find((c) => c.code === countryCode)?.flag}</span>
+                                                    {countryCodes.find((c) => c.code === countryCode)?.country}
+                                                </span>
+                                            ) : (
+                                                "Select country..."
+                                            )}
+                                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-[--radix-popover-trigger-width] p-0 max-h-[300px]" align="start">
+                                        <Command>
+                                            <CommandInput placeholder="Search country..." />
+                                            <CommandList>
+                                                <CommandEmpty>No country found.</CommandEmpty>
+                                                <CommandGroup>
+                                                    {countryCodes.map((country) => (
+                                                        <CommandItem
+                                                            key={country.country}
+                                                            value={country.country}
+                                                            onSelect={(currentValue) => {
+                                                                const found = countryCodes.find((c) => c.country.toLowerCase() === currentValue.toLowerCase());
+                                                                if (found) {
+                                                                    setCountryCode(found.code);
+                                                                }
+                                                                setOpen(false);
+                                                            }}
+                                                        >
+                                                            <Check
+                                                                className={cn(
+                                                                    "mr-2 h-4 w-4",
+                                                                    countryCode === country.code ? "opacity-100" : "opacity-0"
+                                                                )}
+                                                            />
+                                                            <span className="mr-2 text-lg">{country.flag}</span>
+                                                            {country.country}
+                                                            <span className="ml-auto text-muted-foreground text-xs">{country.code}</span>
+                                                        </CommandItem>
+                                                    ))}
+                                                </CommandGroup>
+                                            </CommandList>
+                                        </Command>
+                                    </PopoverContent>
+                                </Popover>
                             </div>
 
                             <div className="relative group/input">
                                 <h4 className="text-sm font-medium text-gray-700 mb-1 ml-1">WhatsApp Number</h4>
-                                <div className="absolute left-3 top-9 w-full h-full pointer-events-none flex items-center">
-                                    <Phone className="w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
-                                </div>
                                 <div className="flex">
-                                    <div className="h-12 bg-gray-100 border border-r-0 border-gray-300 text-gray-500 flex items-center justify-center px-4 rounded-l-xl font-mono text-sm min-w-[80px] mt-0">
+                                    <div className="h-12 bg-gray-100 border border-r-0 border-gray-300 text-gray-500 flex items-center justify-center px-4 rounded-l-xl font-mono text-sm min-w-[80px] mt-0 gap-2">
+                                        <Phone className="w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
                                         {countryCode}
                                     </div>
                                     <Input
@@ -429,28 +473,80 @@ export default function BookingForm() {
                         </div>
 
                         {/* Date & time */}
+                        {/* Date & time */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div className="relative group/input">
-                                <Calendar className="absolute left-3 top-3.5 w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
-                                <Input
-                                    name="pickup_date"
-                                    type="date"
-                                    required
-                                    value={formData.pickup_date}
-                                    className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-xl"
-                                    onChange={handleChange}
-                                />
+                            <div className="relative group/input flex flex-col gap-1.5">
+                                <label className="text-sm font-semibold text-gray-700 ml-1">Pickup Date</label>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <Button
+                                            variant={"outline"}
+                                            className={cn(
+                                                "w-full h-12 justify-start text-left font-normal bg-gray-50 border-gray-300 rounded-xl hover:bg-gray-100",
+                                                !formData.pickup_date && "text-muted-foreground"
+                                            )}
+                                        >
+                                            <CalendarIcon className="mr-2 h-4 w-4 text-gray-500" />
+                                            {formData.pickup_date ? (
+                                                format(new Date(formData.pickup_date), "PPP")
+                                            ) : (
+                                                <span>Pick a date</span>
+                                            )}
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-0" align="start">
+                                        <CalendarComponent
+                                            mode="single"
+                                            selected={formData.pickup_date ? new Date(formData.pickup_date) : undefined}
+                                            onSelect={(date) => {
+                                                if (date) {
+                                                    setFormData(prev => ({
+                                                        ...prev,
+                                                        pickup_date: format(date, "yyyy-MM-dd")
+                                                    }));
+                                                }
+                                            }}
+                                            disabled={(date) =>
+                                                date < new Date(new Date().setHours(0, 0, 0, 0))
+                                            }
+                                            initialFocus
+                                        />
+                                    </PopoverContent>
+                                </Popover>
                             </div>
-                            <div className="relative group/input">
-                                <Clock className="absolute left-3 top-3.5 w-4 h-4 text-gray-400 group-focus-within/input:text-primary transition-colors" />
-                                <Input
-                                    name="pickup_time"
-                                    type="time"
-                                    required
+
+                            <div className="relative group/input flex flex-col gap-1.5">
+                                <label className="text-sm font-semibold text-gray-700 ml-1">Pickup Time</label>
+                                <Select
                                     value={formData.pickup_time}
-                                    className="pl-10 h-12 bg-gray-50 border-gray-300 text-gray-900 focus:border-primary focus:bg-white transition-all rounded-xl"
-                                    onChange={handleChange}
-                                />
+                                    onValueChange={(value) =>
+                                        setFormData(prev => ({ ...prev, pickup_time: value }))
+                                    }
+                                >
+                                    <SelectTrigger className="w-full h-12 bg-gray-50 border-gray-300 rounded-xl">
+                                        <div className="flex items-center">
+                                            <Clock className="mr-2 h-4 w-4 text-gray-500" />
+                                            <SelectValue placeholder="Select time" />
+                                        </div>
+                                    </SelectTrigger>
+                                    <SelectContent className="max-h-[300px]">
+                                        {Array.from({ length: 48 }).map((_, i) => {
+                                            const hour = Math.floor(i / 2);
+                                            const minute = i % 2 === 0 ? '00' : '30';
+                                            const timeString = `${hour.toString().padStart(2, '0')}:${minute}`;
+                                            const date = new Date();
+                                            date.setHours(hour);
+                                            date.setMinutes(parseInt(minute));
+                                            const displayTime = format(date, "h:mm a");
+
+                                            return (
+                                                <SelectItem key={timeString} value={timeString}>
+                                                    {displayTime}
+                                                </SelectItem>
+                                            );
+                                        })}
+                                    </SelectContent>
+                                </Select>
                             </div>
                         </div>
 
