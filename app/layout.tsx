@@ -84,7 +84,7 @@ export const metadata: Metadata = {
     creator: '@umrahtaxi',
   },
   alternates: {
-    canonical: './',
+    canonical: 'https://umrahtaxi.site',
   },
   verification: {
     // google: 'TODO: Add new verification code',
