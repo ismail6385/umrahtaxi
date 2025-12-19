@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <footer className="bg-black text-white pt-20 pb-10 border-t border-white/10 relative overflow-hidden">
             {/* Pattern Overlay */}
-            <div className="absolute inset-0 bg-[url('/pattern-grid.png')] opacity-[0.03] pointer-events-none"></div>
+
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">

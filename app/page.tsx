@@ -128,29 +128,9 @@ export default function Home() {
       {/* Hero Section */}
       <Hero images={heroImages} />
 
-      {/* Trust Indicators Stripe */}
-      <div className="bg-neutral-900 border-b border-white/5 py-10 relative z-20">
-        <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center gap-8 md:gap-16">
-          {[
-            { icon: Clock, text: "Always Punctual" },
-            { icon: Shield, text: "Fully Insured" },
-            { icon: DollarSign, text: "Fixed Pricing" },
-            { icon: Headphones, text: "24/7 Support" }
-          ].map((item, i) => (
-            <div key={i} className="flex items-center gap-3 group opacity-70 hover:opacity-100 transition-opacity cursor-default">
-              <div className="p-2 bg-amber-500/10 rounded-full border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-colors">
-                <item.icon className="w-5 h-5 text-amber-500 group-hover:text-black" />
-              </div>
-              <span className="font-semibold uppercase tracking-widest text-xs md:text-sm text-neutral-300 group-hover:text-white transition-colors">{item.text}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Services Section */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         {/* Background Pattern */}
-        <div className="absolute inset-0 bg-[url('/pattern-grid.png')] opacity-[0.03] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-16 animate-fade-in-up">
@@ -350,7 +330,7 @@ export default function Home() {
 
       {/* Moments of Peace Gallery */}
       <section className="py-24 bg-neutral-900 border-t border-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/pattern-grid.png')] opacity-[0.05] pointer-events-none"></div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-3 px-4 py-1.5 border border-amber-500/30 bg-white/5 backdrop-blur-md rounded-full mb-6">

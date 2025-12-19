@@ -19,6 +19,7 @@ export type BookingData = {
     luggage: number;
     special_requests?: string;
     status?: 'pending' | 'confirmed' | 'cancelled' | 'completed';
+    confirmation_token?: string;
 };
 
 export const vehicles = [

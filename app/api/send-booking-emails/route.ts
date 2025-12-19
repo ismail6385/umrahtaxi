@@ -28,16 +28,24 @@ function formatBookingId(id: string | undefined): string {
 // Helper function to format phone number for WhatsApp
 function formatPhoneForWhatsApp(phone: string | undefined): string {
     if (!phone) return '';
-    // Remove all non-digit characters
+    // Remove all non-digit characters (including + sign)
     const cleaned = phone.replace(/\D/g, '');
-    // If it starts with 0, remove it (Saudi Arabia format)
-    if (cleaned.startsWith('0')) {
-        return cleaned.substring(1);
+
+    // If number already starts with a country code (more than 10 digits), use as is
+    if (cleaned.length > 10) {
+        return cleaned;
     }
-    // If it doesn't start with country code, assume Saudi Arabia (+966)
+
+    // If it starts with 0, remove it and add Saudi code
+    if (cleaned.startsWith('0')) {
+        return `966${cleaned.substring(1)}`;
+    }
+
+    // If it's just a local number, add Saudi code
     if (!cleaned.startsWith('966')) {
         return `966${cleaned}`;
     }
+
     return cleaned;
 }
 
@@ -64,7 +72,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const { booking, price } = body;
+        const { booking, price, confirmationToken } = body;
 
         // Validate required fields
         const requiredFields = [
@@ -121,99 +129,281 @@ export async function POST(request: NextRequest) {
         // Send email to customer
         let customerEmail;
         try {
+            const confirmationUrl = confirmationToken
+                ? `${request.url.replace('/api/send-booking-emails', '')}/api/confirm-booking?token=${confirmationToken}`
+                : '';
+
             customerEmail = await resend.emails.send({
                 from: 'Umrah Taxi <bookings@umrahtaxi.site>',
                 to: [booking.customer_email],
-                subject: `Booking Confirmation - Umrah Taxi (#${booking.id.slice(0, 8)})`,
+                subject: `Booking Received - Umrah Taxi (#${booking.id.slice(0, 8)})`,
                 html: `
                 <!DOCTYPE html>
                 <html>
                 <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <style>
-                        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-                        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-                        .header { background: linear-gradient(135deg, #C6FF00 0%, #B8E600 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-                        .header h1 { color: #000; margin: 0; font-size: 28px; }
-                        .content { background: #fff; padding: 30px; border: 1px solid #e0e0e0; }
-                        .booking-details { background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; }
-                        .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e0e0e0; }
-                        .detail-row:last-child { border-bottom: none; }
-                        .label { color: #666; font-weight: 600; }
-                        .value { color: #000; font-weight: bold; }
-                        .footer { background: #f5f5f5; padding: 20px; text-center; border-radius: 0 0 10px 10px; font-size: 14px; color: #666; }
-                        .button { display: inline-block; background: #C6FF00; color: #000; padding: 12px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 20px 0; }
-                        .price-row { background-color: #f0f0f0; margin: 10px -20px; padding: 10px 20px; border-left: 4px solid #C6FF00; }
+                        body { 
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                            line-height: 1.6; 
+                            color: #333;
+                            margin: 0;
+                            padding: 0;
+                            background-color: #f5f5f5;
+                        }
+                        .container { 
+                            max-width: 600px; 
+                            margin: 20px auto; 
+                            background: #ffffff;
+                            border-radius: 12px;
+                            overflow: hidden;
+                            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                        }
+                        .header { 
+                            background: linear-gradient(135deg, #d97706 0%, #b45309 100%); 
+                            padding: 40px 30px; 
+                            text-align: center;
+                        }
+                        .header h1 { 
+                            color: #fff; 
+                            margin: 0; 
+                            font-size: 32px;
+                            font-weight: 700;
+                        }
+                        .header p {
+                            color: rgba(255,255,255,0.9);
+                            margin: 10px 0 0 0;
+                            font-size: 16px;
+                        }
+                        .content { 
+                            padding: 40px 30px;
+                        }
+                        .greeting {
+                            font-size: 18px;
+                            color: #000;
+                            margin-bottom: 20px;
+                        }
+                        .booking-details { 
+                            background: #f9fafb; 
+                            padding: 25px; 
+                            border-radius: 10px; 
+                            margin: 25px 0;
+                            border: 1px solid #e5e7eb;
+                        }
+                        .booking-details h3 {
+                            margin: 0 0 20px 0;
+                            color: #111827;
+                            font-size: 20px;
+                            font-weight: 600;
+                        }
+                        .detail-row { 
+                            display: flex; 
+                            justify-content: space-between; 
+                            padding: 12px 0; 
+                            border-bottom: 1px solid #e5e7eb;
+                        }
+                        .detail-row:last-child { 
+                            border-bottom: none; 
+                        }
+                        .label { 
+                            color: #6b7280; 
+                            font-weight: 500;
+                            font-size: 14px;
+                        }
+                        .value { 
+                            color: #111827; 
+                            font-weight: 600;
+                            text-align: right;
+                            font-size: 14px;
+                        }
+                        .status-pending {
+                            background: #fef3c7;
+                            color: #92400e;
+                            padding: 8px 16px;
+                            border-radius: 20px;
+                            font-size: 13px;
+                            font-weight: 600;
+                            display: inline-block;
+                        }
+                        .price-highlight {
+                            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+                            padding: 20px;
+                            border-radius: 10px;
+                            text-align: center;
+                            margin: 25px 0;
+                            border: 2px solid #fbbf24;
+                        }
+                        .price-highlight .label {
+                            color: #92400e;
+                            font-size: 14px;
+                            margin-bottom: 5px;
+                        }
+                        .price-highlight .value {
+                            color: #78350f;
+                            font-size: 32px;
+                            font-weight: 700;
+                        }
+                        .cta-button { 
+                            display: inline-block; 
+                            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+                            color: #ffffff !important; 
+                            padding: 16px 40px; 
+                            text-decoration: none; 
+                            border-radius: 8px; 
+                            font-weight: 600;
+                            font-size: 16px;
+                            margin: 20px 0;
+                            box-shadow: 0 4px 6px rgba(217, 119, 6, 0.3);
+                            transition: all 0.3s ease;
+                        }
+                        .cta-button:hover {
+                            box-shadow: 0 6px 12px rgba(217, 119, 6, 0.4);
+                            transform: translateY(-2px);
+                        }
+                        .whatsapp-button {
+                            display: inline-block;
+                            background: #25D366;
+                            color: #ffffff !important;
+                            padding: 14px 32px;
+                            text-decoration: none;
+                            border-radius: 8px;
+                            font-weight: 600;
+                            font-size: 15px;
+                            margin: 10px 0;
+                        }
+                        .info-box {
+                            background: #eff6ff;
+                            border-left: 4px solid #3b82f6;
+                            padding: 16px 20px;
+                            margin: 20px 0;
+                            border-radius: 4px;
+                        }
+                        .info-box p {
+                            margin: 0;
+                            color: #1e40af;
+                            font-size: 14px;
+                        }
+                        .footer { 
+                            background: #f9fafb; 
+                            padding: 30px; 
+                            text-align: center;
+                            border-top: 1px solid #e5e7eb;
+                        }
+                        .footer p {
+                            margin: 5px 0;
+                            color: #6b7280;
+                            font-size: 14px;
+                        }
+                        .footer strong {
+                            color: #111827;
+                        }
+                        @media only screen and (max-width: 600px) {
+                            .container {
+                                margin: 0;
+                                border-radius: 0;
+                            }
+                            .content {
+                                padding: 30px 20px;
+                            }
+                            .detail-row {
+                                flex-direction: column;
+                                gap: 5px;
+                            }
+                            .value {
+                                text-align: left;
+                            }
+                        }
                     </style>
                 </head>
                 <body>
                     <div class="container">
                         <div class="header">
-                            <h1>🚗 Booking Confirmed!</h1>
+                            <h1>🚗 Booking Received!</h1>
+                            <p>We're preparing your journey</p>
                         </div>
+                        
                         <div class="content">
-                            <p>Dear <strong>${booking.customer_name}</strong>,</p>
-                            <p>Thank you for choosing Umrah Taxi! Your booking has been confirmed.</p>
+                            <p class="greeting">Dear <strong>${booking.customer_name}</strong>,</p>
+                            
+                            <p style="color: #4b5563; font-size: 15px; line-height: 1.6;">
+                                Thank you for choosing Umrah Taxi! Your booking request has been received and is being processed.
+                            </p>
                             
                             <div class="booking-details">
-                                <h3 style="margin-top: 0; color: #000;">Booking Details</h3>
+                                <h3>📋 Booking Details</h3>
                                 
                                 <div class="detail-row">
-                                    <span class="label">Booking ID:</span>
-                                    <span class="value">${formatBookingId(booking.id)}</span>
+                                    <span class="label">Booking ID</span>
+                                    <span class="value">#${booking.id.slice(0, 8).toUpperCase()}</span>
                                 </div>
                                 
                                 <div class="detail-row">
-                                    <span class="label">Pickup Location:</span>
+                                    <span class="label">Pickup Location</span>
                                     <span class="value">${booking.pickup_location}</span>
                                 </div>
                                 
                                 <div class="detail-row">
-                                    <span class="label">Destination:</span>
+                                    <span class="label">Destination</span>
                                     <span class="value">${booking.destination}</span>
                                 </div>
                                 
                                 <div class="detail-row">
-                                    <span class="label">Date & Time:</span>
+                                    <span class="label">Date & Time</span>
                                     <span class="value">${booking.pickup_date} at ${booking.pickup_time}</span>
                                 </div>
                                 
                                 <div class="detail-row">
-                                    <span class="label">Vehicle:</span>
+                                    <span class="label">Vehicle</span>
                                     <span class="value">${booking.vehicle_type}</span>
                                 </div>
                                 
                                 <div class="detail-row">
-                                    <span class="label">Passengers:</span>
-                                    <span class="value">${booking.passengers || 1} passengers</span>
+                                    <span class="label">Passengers</span>
+                                    <span class="value">${booking.passengers || 1} passenger${booking.passengers > 1 ? 's' : ''}</span>
                                 </div>
                                 
-                                ${price ? `
-                                <div class="detail-row price-row">
-                                    <span class="label">Total Price:</span>
-                                    <span class="value" style="font-size: 1.2em; color: #000;">SAR ${price}</span>
-                                </div>
-                                ` : ''}
-
                                 <div class="detail-row">
-                                    <span class="label">Status:</span>
-                                    <span class="value" style="color: #C6FF00;">Pending Confirmation</span>
+                                    <span class="label">Status</span>
+                                    <span class="value"><span class="status-pending">⏳ Pending Confirmation</span></span>
                                 </div>
                             </div>
                             
-                            <p>Our team will contact you shortly on <strong>+${formatPhoneForWhatsApp(booking.customer_phone)}</strong> to confirm the final details.</p>
+                            ${price ? `
+                            <div class="price-highlight">
+                                <div class="label">💰 Estimated Price</div>
+                                <div class="value">SAR ${price}</div>
+                            </div>
+                            ` : ''}
                             
-                            <center>
-                                ${booking.customer_phone ? `<a href="https://wa.me/${formatPhoneForWhatsApp(booking.customer_phone)}" class="button">Contact Us on WhatsApp</a>` : ''}
-                            </center>
+                            ${confirmationUrl ? `
+                            <div style="text-align: center; margin: 30px 0;">
+                                <a href="${confirmationUrl}" class="cta-button">
+                                    ✅ Confirm Your Booking
+                                </a>
+                                <p style="color: #6b7280; font-size: 13px; margin-top: 10px;">
+                                    Click the button above to confirm your booking
+                                </p>
+                            </div>
+                            ` : ''}
                             
-                            <p style="margin-top: 30px; font-size: 14px; color: #666;">
-                                If you have any questions, feel free to reach out to us at <a href="mailto:umrahtaxi22@gmail.com">umrahtaxi22@gmail.com</a>
+                            <div class="info-box">
+                                <p><strong>📞 What's Next?</strong></p>
+                                <p style="margin-top: 8px;">Our team will contact you shortly on <strong>${booking.customer_phone}</strong> to confirm the final details.</p>
+                            </div>
+                            
+                            <p style="margin-top: 30px; font-size: 14px; color: #6b7280; text-align: center;">
+                                Need help? Email us at <a href="mailto:umrahtaxi22@gmail.com" style="color: #d97706; text-decoration: none; font-weight: 600;">umrahtaxi22@gmail.com</a>
                             </p>
                         </div>
+                        
                         <div class="footer">
                             <p><strong>Umrah Taxi</strong></p>
                             <p>Premium Umrah & Hajj Transport Services</p>
                             <p>Jeddah | Makkah | Madinah</p>
+                            <p style="margin-top: 15px; font-size: 12px;">
+                                © ${new Date().getFullYear()} Umrah Taxi. All rights reserved.
+                            </p>
                         </div>
                     </div>
                 </body>

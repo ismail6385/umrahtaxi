@@ -39,7 +39,7 @@ export default function Hero(props: HeroProps) {
     }, [slides.length]);
 
     return (
-        <section className="relative h-[90vh] sm:h-screen min-h-[600px] w-full overflow-hidden flex items-center bg-black">
+        <section className="relative min-h-screen w-full overflow-x-hidden bg-black">
             {/* Fullscreen Background Slider */}
             <div className="absolute inset-0 z-0">
                 {slides.map((slide, index) => (
@@ -64,8 +64,8 @@ export default function Hero(props: HeroProps) {
             </div>
 
             {/* Content Container */}
-            <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center pt-32">
-                <div className="grid lg:grid-cols-12 gap-8 items-center">
+            <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 w-full pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 lg:pb-20">
+                <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12">
 
                     {/* Typography Section - Center on Mobile, Left on Desktop */}
                     <div className="lg:col-span-7 space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start animate-fade-in-up">
@@ -115,11 +115,11 @@ export default function Hero(props: HeroProps) {
                     </div>
 
                     {/* Booking Form Widget - Floating Right */}
-                    <div className="hidden lg:block lg:col-span-5 relative animate-fade-in-up delay-200">
-                        <div className="bg-black/40 backdrop-blur-xl p-1 rounded-sm border border-amber-500/30">
-                            <div className="bg-black/90 p-8 border border-white/5">
-                                <div className="text-center mb-8 pb-4 border-b border-white/10">
-                                    <h3 className="text-xl font-serif text-white tracking-wide">Plan Your Trip</h3>
+                    <div className="lg:col-span-5 relative animate-fade-in-up delay-200 w-full mt-6 lg:mt-0">
+                        <div className="bg-black/40 backdrop-blur-xl p-1 rounded-sm border border-amber-500/30 max-h-[calc(100vh-180px)] overflow-y-auto scrollbar-thin scrollbar-thumb-amber-500/50 scrollbar-track-white/5">
+                            <div className="bg-black/90 p-4 sm:p-5 lg:p-6 border border-white/5">
+                                <div className="text-center mb-4 sm:mb-5 pb-3 border-b border-white/10">
+                                    <h3 className="text-base sm:text-lg font-serif text-white tracking-wide">Plan Your Trip</h3>
                                     <p className="text-amber-500/80 text-xs uppercase tracking-widest mt-1">Instant Confirmation</p>
                                 </div>
                                 <BookingForm variant="hero" />

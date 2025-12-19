@@ -159,7 +159,7 @@ export default function Navbar() {
                 isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
             )}>
                 {/* Background decoration */}
-                <div className="absolute inset-0 bg-[url('/pattern-grid.png')] opacity-5 pointer-events-none"></div>
+
 
                 <div className="w-full max-w-sm px-8 space-y-6 relative z-10 text-center">
                     {navLinks.map((link) => (

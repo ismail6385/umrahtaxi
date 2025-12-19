@@ -1,34 +1,18 @@
 {
-    "name": "Umrah Taxi",
-    "short_name": "UmrahTaxi",
-    "description": "Premium Umrah & Hajj Taxi Service in Saudi Arabia",
+    "name": "Umrah Taxi - Premium Umrah & Hajj Transport Service",
+    "short_name": "Umrah Taxi",
+    "description": "Book reliable Umrah Taxi services for Makkah, Madinah, and Jeddah. Airport transfers, Ziyarat tours, and intercity travel with premium vehicles.",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#047857",
+    "background_color": "#000000",
+    "theme_color": "#d97706",
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "/favicon.ico",
-            "sizes": "64x64 32x32 24x24 16x16",
-            "type": "image/x-icon"
-        },
-        {
-            "src": "/logo192.png",
-            "type": "image/png",
-            "sizes": "192x192"
-        },
-        {
-            "src": "/logo512.png",
-            "type": "image/png",
-            "sizes": "512x512"
+            "src": "/logo.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
         }
-    ],
-    "categories": [
-        "travel",
-        "transportation",
-        "taxi"
-    ],
-    "lang": "en-US",
-    "dir": "ltr"
+    ]
 }
