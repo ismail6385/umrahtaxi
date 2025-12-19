@@ -18,10 +18,6 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://umrahtaxi.site'),
   title: 'Umrah Taxi | #1 Trusted Umrah & Hajj Taxi Service in KSA',
   description: 'Book reliable Umrah Taxi services for Makkah, Madinah, and Jeddah. Airport transfers, Ziyarat tours, and intercity travel with premium vehicles. 24/7 Service.',
-  icons: {
-    icon: '/favicon.svg',
-    apple: '/logo.svg',
-  },
   keywords: [
     // Primary Keywords
     'Umrah Taxi Service', 'Hajj Taxi Service', 'Makkah Taxi', 'Madinah Taxi',
